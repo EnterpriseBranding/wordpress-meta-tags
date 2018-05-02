@@ -36,6 +36,9 @@ None yet.
 
 == Changelog ==
 
+= 1.3.0 =
+* Update: more refactoring, switching to OOP
+
 = 1.2.6 =
 * Fix: meta tags are now saved properly
 
