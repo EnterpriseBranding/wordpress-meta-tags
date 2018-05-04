@@ -8,7 +8,7 @@ A super simple plugin to edit meta tags in all your pages, posts and WooCommerce
 
 
 ## To-Do List
-* Refactor code in a smart, OOP way because now it's spaghetti edition :)
+* Refactor code in a smart, maintainable, OOP way because now it's spaghetti edition :)
 * Create .pot file
 * Make sections collapsable
-* Use composer
+* Use Composer and [WP coding standards](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards)

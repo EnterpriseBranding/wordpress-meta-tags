@@ -16,10 +16,19 @@
 
 	//better safe than sorry
 		if (!function_exists('add_action')){			
-			exit('Hi there! I\'m just a plugin, not much I can do when called directly.');
+			exit('Hi there! I am just a plugin, not much I can do when called directly.');
 		}
 
-		
+
+
+	//PHP 5.6.3 and WP 4.7 is required
+		if(version_compare(PHP_VERSION, '5.6.3', '<') || version_compare(get_bloginfo('version'), '4.7', '<')){
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+			deactivate_plugins( __FILE__ );
+			die('Meta Tags plugin requires PHP version 5.6.3 or greater and WordPress 4.7 or greater!');
+		}
+
+
 		
 	//plugin main file path
 		define( 'DP_META_TAGS_PLUGIN_FILE', __FILE__ );
@@ -41,7 +50,6 @@
 
 	//admin notices
 		require_once('inc/admin-notices.php');
-
 	
 		
 	
@@ -50,8 +58,7 @@
 		require_once('inc/admin-index-settings.php');
 
 
-		
-	
+			
 	
 	//add metabox in page/post/woo product editor
 		function dp_metatags_metabox(){	
