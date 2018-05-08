@@ -4,7 +4,7 @@
     //meta tag editor metabox
         function dp_metatags_editor(){          
             global $post;
-        
+            
             //load saved values
             $dp_metatags_general_description = get_post_meta($post->ID, 'dp-metatags-general-description', true);
             $dp_metatags_general_keywords = get_post_meta($post->ID, 'dp-metatags-general-keywords', true);

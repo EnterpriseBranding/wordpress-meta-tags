@@ -49,11 +49,23 @@
 	
 
 	//admin notices
-		require_once('inc/admin-notices.php');
+		require_once('inc/class-admin-notices.php');
+
+	//add notice to theme pages
+		$notice = new AdminNotice();
+		$notice->setMessage('Need some nice, free or premium theme? <a href="https://divpusher.com" target="_blank">Have a look around here!</a>');
+		$notice->setType('notice-success');
+		$notice->onPage( 'themes.php', 'theme-install.php' );
+
+	//add notice on plugin activation
+		$noticeActivation = new AdminNotice();
+		$noticeActivation->setTransient('dp_metatags_activation');
+		$noticeActivation->setMessage('Thank you for using our plugin. In case you need some nice, free or premium theme, have a <a href="https://divpusher.com" target="_blank">look around here!');
+		$noticeActivation->onPluginActivation( __FILE__ );
 	
-		
-	
-	
+
+
+
 	//add meta tags to settings menu in admin		
 		require_once('inc/admin-index-settings.php');
 
