@@ -178,11 +178,42 @@ class AdminNotice{
 
 
     //display notice on theme activation
-    public function onThemeActivation() {
-        //coming soon
-        //https://codex.wordpress.org/Plugin_API/Action_Reference/after_switch_theme
+    public function onThemeActivation($themeName = null) {
+        
+        if(empty($this->message)) {
+            trigger_error( 'A message must be set before calling this method!', E_USER_ERROR );
+
+            return;
+        }
+
+
+        add_action( 'after_switch_theme', function() use($themeName){
+
+            //check theme if set
+            if(!empty($themeName)){
+                $activeTheme = wp_get_theme();
+                if($activeTheme->get('Name') != $themeName){
+                    return;
+                }
+            }
+
+            add_action( 'admin_notices', function() { 
+
+                $class = $this->type;
+
+                if($this->dismissible){
+                    $class .= ' is-dismissible';
+                }
+
+                echo '<div class="notice '. $class .'">
+                    <p>'. $this->message .'</p>            
+                </div>';
+                    
+            });
+
+
+        });
 
     }
-
 
 }
