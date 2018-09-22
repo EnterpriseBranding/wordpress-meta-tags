@@ -9,7 +9,7 @@ Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0
 
-A super simple plugin to edit meta tags on all your posts and pages for SEO. Facebook's OpenGraph and Twitter Cards are included.
+A super simple plugin to edit meta tags in all your pages, posts and WooCommerce product pages.
 
 
 == Description ==
@@ -26,7 +26,7 @@ In case your frontpage shows your latest posts, go to Settings - Meta Tags to se
 
 == Screenshots ==
 
-1. The meta tag editor in post/page editor
+1. The meta tag editor in post/page/product editor
 
 
 == Frequently Asked Questions ==
@@ -37,7 +37,11 @@ None yet.
 == Changelog ==
 
 = 1.3.0 =
-* Update: more refactoring, switching to OOP
+* Update: complete refactoring, switching to more maintainable OOP code
+
+= 1.2.7 =
+* Fix: first product disappeared on WooCommerce shop page
+* Fix: page title setting now appears
 
 = 1.2.6 =
 * Fix: meta tags are now saved properly

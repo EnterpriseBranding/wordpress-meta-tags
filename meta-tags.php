@@ -1,97 +1,46 @@
 <?php
+
 /**
  * Plugin Name: Meta Tags
  * Plugin URI: https://wordpress.org/plugins/meta-tags/
- * Description: A super simple plugin to edit meta tags on all your posts and pages for SEO.
+ * Description: A super simple plugin to edit meta tags in all your pages, posts and WooCommerce product pages.
  * Author: DivPusher - WordPress Theme Club
  * Author URI: https://divpusher.com/
  * Version: 1.3.0
  * Text Domain: meta-tags
- * Tags: meta tags, seo, edit meta tags, search engine optimization, facebook open graph, twitter cards, schema.org
+ * Tags: meta tags, edit meta tags, facebook open graph, twitter cards, schema.org
  * License: GPLv3
  * License URI: http://www.gnu.org/licenses/gpl-3.0
  */
 
 
 
-	//better safe than sorry
-		if (!function_exists('add_action')){			
-			exit('Hi there! I am just a plugin, not much I can do when called directly.');
-		}
+// direct calls are not allowed
+defined('ABSPATH') || die();
 
 
 
-	//PHP 5.6.3 and WP 4.7 is required
-		if(version_compare(PHP_VERSION, '5.6.3', '<') || version_compare(get_bloginfo('version'), '4.7', '<')){
-			require_once ABSPATH . 'wp-admin/includes/plugin.php';
-			deactivate_plugins( __FILE__ );
-			die('Meta Tags plugin requires PHP version 5.6.3 or greater and WordPress 4.7 or greater!');
-		}
-
-
-		
-	//plugin main file path
-		define( 'DP_META_TAGS_PLUGIN_FILE', __FILE__ );
-		
-		
-		
-	//add settings link to plugin page
-		function dp_metatags_actions( $links, $file ) {
-			if( $file == plugin_basename( DP_META_TAGS_PLUGIN_FILE ) && function_exists( 'admin_url' ) ) {
-				$settings_link = '<a href="' . admin_url( 'options-general.php?page=meta-tags-options' ) . '">' . __('Set up tags','meta-tags') . '</a>';				
-				array_unshift( $links, $settings_link );
-			}
-			return $links;
-		}
-		add_filter( 'plugin_action_links', 'dp_metatags_actions', 10, 2 );
-	
-	
-	
-
-	//admin notices
-		require_once('inc/class-admin-notices.php');
-
-	//add notice to theme pages
-		$notice = new AdminNotice();
-		$notice->setMessage('Need some nice, free or premium theme? <a href="https://divpusher.com" target="_blank">Have a look around here!</a>');
-		$notice->setType('notice-success');
-		$notice->onPage( 'themes.php', 'theme-install.php' );
-
-	//add notice on plugin activation
-		$noticeActivation = new AdminNotice();
-		$noticeActivation->setTransient('dp_metatags_activation');
-		$noticeActivation->setMessage('Thank you for using our plugin. In case you need some nice, free or premium theme, have a <a href="https://divpusher.com" target="_blank">look around here!');
-		$noticeActivation->onPluginActivation( __FILE__ );
-	
+// define plugin file
+if( !defined('DPMT_PLUGIN_FILE') ){
+    define( 'DPMT_PLUGIN_FILE', plugin_basename( __FILE__ ) );
+}
 
 
 
-
-	//add meta tags to settings menu in admin		
-		require_once('inc/admin-index-settings.php');
-
-
-			
-	
-	//add metabox in page/post/woo product editor
-		function dp_metatags_metabox(){	
-			if(function_exists('add_meta_box')){		
-				add_meta_box( 'dp-metatags', esc_html__('Meta Tag Editor','meta-tags'), 'dp_metatags_editor', 'page', 'normal' );						
-				add_meta_box( 'dp-metatags', esc_html__('Meta Tag Editor','meta-tags'), 'dp_metatags_editor', 'post', 'normal' );					
-				if(class_exists('WooCommerce')){	
-					add_meta_box( 'dp-metatags', esc_html__('Meta Tag Editor','meta-tags'), 'dp_metatags_editor', 'product', 'normal', 'low' );	
-				}				
-			}
-		}		
-		add_action('admin_menu', 'dp_metatags_metabox');
-	
-	
+// include core class
+if ( ! class_exists( 'DP_Meta_Tags' ) ){
+	require_once dirname(__FILE__) . '/includes/class-dp-meta-tags.php';
+}
 
 
-	//meta tag editor metabox
-		require_once('inc/admin-meta-tags-editor.php');
 
-	
-	
-	//frontend echo
-		require_once('inc/frontend-output.php');
+// main instance of the plugin
+function DPMT(){
+	return DP_Meta_Tags::get_instance();
+}
+
+
+
+// start the plugin
+DPMT();
+
