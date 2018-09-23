@@ -98,9 +98,9 @@ final class DP_Meta_Tags {
     private function run(){
 
         if ( is_admin() ){
-            include_once dirname( __FILE__ ) . '/admin/class-dpmt-admin.php';
+            include_once dirname(__FILE__) . '/admin/class-dpmt-admin.php';
         }else{
-            include_once dirname( __FILE__ ) . '/class-dpmt-front.php';
+            include_once dirname(__FILE__) . '/class-dpmt-frontend.php';
         }
 
     }

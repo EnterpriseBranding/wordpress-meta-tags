@@ -10,4 +10,5 @@ A super simple plugin to edit meta tags in all your pages, posts and WooCommerce
 ## To-Do List
 * Make sections collapsable in meta tag editor
 * Make it translation ready
-* Create PHPUNit tests
+* Create PHPUnit tests
+* Add option to auto-fill meta tags based on the page/post/product content

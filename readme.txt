@@ -17,6 +17,8 @@ A super simple plugin to edit meta tags in all your pages, posts and WooCommerce
 A super simple plugin to edit meta tags on all your posts and pages for SEO. Facebook's OpenGraph and Twitter Cards are included.
 We’d love to hear your feedbacks and suggestions, please let us know on our support forums!
 
+You can also help us [develop the plugin on GitHub](https://github.com/divpusher/wordpress-meta-tags)!
+
 
 == Setup ==
 
@@ -38,6 +40,9 @@ None yet.
 
 = 1.3.0 =
 * Update: complete refactoring, switching to more maintainable OOP code
+* Update: removed page title setting, because you can define it elsewhere natively
+* Update: sections are now collapsable
+* Fix: added some missing tags
 
 = 1.2.7 =
 * Fix: first product disappeared on WooCommerce shop page

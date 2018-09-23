@@ -26,10 +26,9 @@ if( !defined('DPMT_PLUGIN_FILE') ){
 }
 
 
-
 // include core class
 if ( ! class_exists( 'DP_Meta_Tags' ) ){
-	require_once dirname(__FILE__) . '/includes/class-dp-meta-tags.php';
+	require_once dirname( __FILE__ ) . '/includes/class-dp-meta-tags.php';
 }
 
 

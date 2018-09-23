@@ -4,13 +4,13 @@
 defined('ABSPATH') || die();
 
 
-class DPMT_Front {
+class DPMT_Frontend {
 
 
     // add actions and filters
     public function __construct(){
 
-        add_action( 'init', array( $this, 'includes' ));
+        add_action( 'init', array( $this, 'includes' ) );
 
     }
 
@@ -35,4 +35,4 @@ class DPMT_Front {
 
 }
 
-return new DPMT_Front();
+return new DPMT_Frontend();

@@ -10,9 +10,9 @@ class DPMT_Admin {
     // add actions and filters
     public function __construct(){
         
-        add_action( 'init', array( $this, 'includes' ));
-        add_filter( 'plugin_action_links_' . DPMT_PLUGIN_FILE, array( $this, 'add_action_link') );
-        add_action( 'admin_menu', array($this, 'add_editor_to_settings') );
+        add_action( 'init', array( $this, 'includes' ) );
+        add_filter( 'plugin_action_links_' . DPMT_PLUGIN_FILE, array( $this, 'add_action_link' ) );
+        add_action( 'admin_menu', array( $this, 'add_editor_to_settings') );
         
         // add dismissable divpusher notice on theme page
         // add homepage meta tag editor
@@ -25,8 +25,8 @@ class DPMT_Admin {
     // include all the classes and functions we need
     public function includes(){
         
-        // include_once dirname(__FILE__) . '/class-dpmt-notices.php';   
-        include_once dirname(__FILE__) . '/../dpmt-meta-tag-list.php';   
+        // include_once dirname( __FILE__ ) . '/class-dpmt-notices.php';   
+        include_once dirname( plugin_dir_path( __FILE__ ) ) . '/dpmt-meta-tag-list.php';  
 
     }
 
