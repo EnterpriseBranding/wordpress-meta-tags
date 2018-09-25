@@ -1,0 +1,19 @@
+ 
+.dpmt-dismiss-forever{
+    float: right;
+    text-align: right;
+}
+
+.dpmt-dismiss-forever a{
+    text-decoration: none;
+}
+
+.dpmt-dismiss-forever a:hover .dashicons,
+.dpmt-dismiss-forever a:hover{
+    color: red;
+}
+
+
+.dpmt-editor h1{
+    margin-bottom: 30px;
+}

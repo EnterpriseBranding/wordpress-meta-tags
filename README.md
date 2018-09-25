@@ -1,5 +1,5 @@
 # Meta Tags WordPress Plugin
-A super simple plugin to edit meta tags in all your pages, posts and WooCommerce product pages.
+A powerful plugin to edit meta tags in all your pages, posts and WooCommerce product pages.
 
 
 ## Requirements

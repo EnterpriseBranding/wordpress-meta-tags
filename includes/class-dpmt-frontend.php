@@ -28,7 +28,11 @@ class DPMT_Frontend {
     // output all filled meta tag
     public function print_meta_tags(){
 
+        // check page type, use switch case
 
+        // get the proper id
+
+        // get meta tags from postmeta table
 
     }
 

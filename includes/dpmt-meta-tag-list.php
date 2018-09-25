@@ -1,12 +1,14 @@
 <?php
 
 /**
- * List of meta tags which are editable in the admin
+ * List of meta tags which can be edited in the admin
  */
+
+defined('ABSPATH') || die();
 
 $dpmt_meta_tag_list = [
 
-    'General meta tags' => [
+    'General tags' => [
         'info' => 'Basic HTML meta tags.',
         'attr' => 'name',
         'fields' => [
@@ -24,7 +26,7 @@ $dpmt_meta_tag_list = [
 
 
 
-    'Facebook\'s OpenGraph meta tags' => [
+    'Open Graph' => [
         'info' => 'Open Graph has become very popular, so most social networks default to Open Graph if no other meta tags are present.',
         'attr' => 'property',
         'fields' => [
@@ -65,7 +67,7 @@ $dpmt_meta_tag_list = [
 
 
     
-    'Twitter cards' => [
+    'Twitter Cards' => [
         'info' => 'Simply add a few lines of markup to your webpage, and users who Tweet links to your content will have a "Card" added to the Tweet that’s visible to their followers.',
         'attr' => 'name',
         'fields' => [
