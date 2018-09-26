@@ -1,5 +1,5 @@
 # Meta Tags WordPress Plugin
-A powerful plugin to edit meta tags in all your pages, posts and WooCommerce product pages.
+A powerful plugin to edit meta tags on all your pages, posts, categories, tags from one easy to use table. WooCommerce is supported as well. Facebook's OpenGraph and Twitter Cards are included.
 
 
 ## Requirements
@@ -8,7 +8,6 @@ A powerful plugin to edit meta tags in all your pages, posts and WooCommerce pro
 
 
 ## To-Do List
-* Make sections collapsable in meta tag editor
 * Make it translation ready
 * Create PHPUnit tests
-* Add option to auto-fill meta tags based on the page/post/product content
+* Create a nice class to handle notice, maybe

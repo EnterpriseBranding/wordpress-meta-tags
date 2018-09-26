@@ -63,7 +63,7 @@ class DPMT_Admin {
 
 
 
-    // add meta tag editor table to settings menu
+    // add  meta tag editor link settings menu
     public function add_editor_to_settings(){
 
         add_submenu_page(
@@ -82,7 +82,7 @@ class DPMT_Admin {
     // display meta tag editor page
     public function meta_tag_editor_page(){
 
-        include_once dirname( plugin_dir_path( __FILE__ ) ) . '/admin/views/html-tag-editor.php';
+        include_once 'views/html-tag-editor.php';
 
     }
 
@@ -97,7 +97,7 @@ class DPMT_Admin {
             if( get_transient( 'dmpt_activation_notice' ) ){
 
                 echo '<div class="notice notice-info is-dismissible"><p>
-                Thank you for using our plugin. In case you need some nice, free or premium theme, have a <a href="https://divpusher.com" target="_blank">look around here!
+                Thank you for using our plugin. Visit <b>Settings / Meta tags</b> to set up all the tags.
                 </p></div>';
                 
                 delete_transient( 'dmpt_activation_notice' );
@@ -124,7 +124,7 @@ class DPMT_Admin {
 
                 echo '<div class="notice notice-info"><p>
                 Need some nice, free or premium theme? <a href="https://divpusher.com" target="_blank">Have a look around here!</a>
-                <span class="dpmt-dismiss-forever"><a href="?dpmt_ad_dismissed=1"><i class="dashicons dashicons-dismiss"></i> Dismiss</span></a>
+                <span class="dpmt-dismiss-forever"><a href="?dpmt_ad_dismissed=1"><i class="dashicons dashicons-dismiss"></i> Dismiss forever</span></a>
                 </p></div>';
 
             }
@@ -149,6 +149,7 @@ class DPMT_Admin {
     public function add_css_js($hook){
 
         wp_enqueue_style( 'dpmt_admin_css', plugins_url('assets/css/admin.css', DPMT_PLUGIN_FILE) );
+        wp_enqueue_script( 'dpmt_admin_js', plugins_url('assets/js/admin.js', DPMT_PLUGIN_FILE), array('jquery') );
 
     }
 

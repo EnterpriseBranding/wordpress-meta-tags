@@ -26,20 +26,13 @@ if( !defined('DPMT_PLUGIN_FILE') ){
 }
 
 
+
 // include core class
-if ( ! class_exists( 'DP_Meta_Tags' ) ){
-	require_once dirname( __FILE__ ) . '/includes/class-dp-meta-tags.php';
+if ( ! class_exists( 'DPMT_Meta_Tags' ) ){
+	require_once dirname( __FILE__ ) . '/includes/class-dpmt-meta-tags.php';
 }
 
 
 
 // main instance of the plugin
-function DPMT(){
-	return DP_Meta_Tags::get_instance();
-}
-
-
-
-// start the plugin
-DPMT();
-
+return DPMT_Meta_Tags::get_instance();

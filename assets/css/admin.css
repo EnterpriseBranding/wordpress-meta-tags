@@ -17,3 +17,45 @@
 .dpmt-editor h1{
     margin-bottom: 30px;
 }
+
+
+.dpmt-editor .dashicons-editor-help{
+    cursor: help;
+    position: relative;
+}
+
+.dpmt-editor .dashicons-editor-help:after{
+    content: attr(data-tip);
+    font-size: 13px;
+    font-family: sans-serif;
+    line-height: 20px;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    background: rgba(10, 20, 30, 0.85);        
+    padding: 0.5em;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    min-width: 120px;
+    max-width: 200px;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s ease-in-out;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+
+.dpmt-editor .dashicons-editor-help:hover:after {
+    visibility: visible;
+    opacity: 1
+}
+
+
+.dpmt-hidden{
+    display: none;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}

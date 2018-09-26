@@ -4,7 +4,7 @@
 defined('ABSPATH') || die();
 
 
-final class DP_Meta_Tags {
+final class DPMT_Meta_Tags {
 
     
     const DPMT_REQUIRED_PHP = '5.6.3';
