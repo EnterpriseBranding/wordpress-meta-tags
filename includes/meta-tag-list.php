@@ -9,6 +9,7 @@ defined('ABSPATH') || die();
 $dpmt_meta_tag_list = [
 
     'General tags' => [
+        'var' => 'general',
         'info' => 'Basic HTML meta tags.',
         'attr' => 'name',
         'fields' => [
@@ -27,6 +28,7 @@ $dpmt_meta_tag_list = [
 
 
     'Open Graph' => [
+        'var' => 'og',
         'info' => 'Open Graph has become very popular, so most social networks default to Open Graph if no other meta tags are present.',
         'attr' => 'property',
         'fields' => [
@@ -68,6 +70,7 @@ $dpmt_meta_tag_list = [
 
     
     'Twitter Cards' => [
+        'var' => 'twitter',
         'info' => 'Simply add a few lines of markup to your webpage, and users who Tweet links to your content will have a "Card" added to the Tweet that’s visible to their followers.',
         'attr' => 'name',
         'fields' => [

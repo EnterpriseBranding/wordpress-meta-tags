@@ -9,13 +9,13 @@ Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0
 
-A powerful plugin to edit meta tags on all your pages, posts, categories, tags from one easy to use table. WooCommerce is supported as well. Facebook's OpenGraph and Twitter Cards are included.
+A powerful plugin to edit meta tags on all your pages, posts, categories, tags from one easy-to-use table. WooCommerce is supported as well. Facebook's OpenGraph and Twitter Cards are included.
 
 
 
 == Description ==
 
-A powerful plugin to edit meta tags on all your pages, posts, categories, tags from one easy to use table. WooCommerce is supported as well. Facebook's OpenGraph and Twitter Cards are included.
+A powerful plugin to edit meta tags on all your pages, posts, categories, tags from one easy-to-use table. WooCommerce is supported as well. Facebook's OpenGraph and Twitter Cards are included.
 
 We’d love to hear your feedbacks and suggestions, please let us know on our support forums!
 

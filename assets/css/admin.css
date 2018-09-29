@@ -35,13 +35,18 @@
     background: rgba(10, 20, 30, 0.85);        
     padding: 0.5em;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    min-width: 120px;
-    max-width: 200px;
+    max-width: 200px;    
     text-align: center;
     opacity: 0;
     visibility: hidden;
     transition: all .3s ease-in-out;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    right: 100%;
+    min-width: 100px;
+}
+
+.dpmt-editor table tbody .dashicons-editor-help:after{
+    right: auto;
 }
 
 
@@ -58,4 +63,28 @@
     box-sizing: border-box;
     border: 1px solid #ccc;
     background-color: #fff;
+}
+
+.dpmt-editor table{
+    min-width: 820px;    
+}
+
+.dpmt-editor table tbody tr:hover{
+    background-color: #ecf7f9;
+}
+
+@media only screen and (max-width: 783px) { 
+    .dpmt-editor .table-holder{
+        width: 100%;
+        overflow: auto;
+    }
+}
+
+
+@media only screen and (max-width: 980px) { 
+    .dpmt-editor .nav-tab{
+        border: 1px solid #ccc;
+        margin-right: 15px;
+        margin-bottom: 15px;
+    }
 }

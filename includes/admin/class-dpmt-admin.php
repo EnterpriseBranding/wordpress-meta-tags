@@ -17,6 +17,7 @@ class DPMT_Admin {
         add_filter( 'plugin_action_links_' . DPMT_PLUGIN_FILE, array( $this, 'add_action_link' ) );
         add_action( 'admin_menu', array( $this, 'add_editor_to_settings') );
         add_action( 'admin_enqueue_scripts', array( $this, 'add_css_js' ) );
+        add_action( 'admin_footer_text', array( $this, 'change_footer_text' ) );
                     
     }
 
@@ -25,8 +26,6 @@ class DPMT_Admin {
     // include all the classes and functions we need
     public function includes(){
         
-        include_once dirname( plugin_dir_path( __FILE__ ) ) . '/dpmt-meta-tag-list.php';  
-
     }
 
 
@@ -81,7 +80,9 @@ class DPMT_Admin {
 
     // display meta tag editor page
     public function meta_tag_editor_page(){
-
+        
+        include_once dirname( plugin_dir_path( __FILE__ ) ) . '/meta-tag-list.php';
+        include_once dirname( plugin_dir_path( __FILE__ ) ) . '/class-dpmt-retrieve-tags.php';
         include_once 'views/html-tag-editor.php';
 
     }
@@ -150,6 +151,23 @@ class DPMT_Admin {
 
         wp_enqueue_style( 'dpmt_admin_css', plugins_url('assets/css/admin.css', DPMT_PLUGIN_FILE) );
         wp_enqueue_script( 'dpmt_admin_js', plugins_url('assets/js/admin.js', DPMT_PLUGIN_FILE), array('jquery') );
+
+    }
+
+
+
+    // change footer text
+    public function change_footer_text($footer_text){
+
+        if( !empty($_GET['page']) && $_GET['page'] == 'dpmt-settings' ){
+            $footer_text = sprintf(
+                __( 'If you like our %1$s please leave us a %2$s rating. Thank you in advance!', 'dp-meta-tags' ), 
+                sprintf( '<strong>%s</strong>', esc_html__( 'Meta Tags plugin', 'dp-meta-tags' ) ), 
+                '<a href="https://wordpress.org/support/plugin/meta-tags/reviews?rate=5#new-post" target="_blank" class="dpmt-rating-link" data-rated="' . esc_attr__( 'Thanks :)', 'dp-meta-tags' ) . '">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
+            );
+        }
+        
+        return $footer_text;
 
     }
 

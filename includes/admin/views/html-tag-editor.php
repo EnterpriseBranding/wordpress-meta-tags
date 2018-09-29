@@ -13,8 +13,8 @@ defined('ABSPATH') || die();
     <h1>Meta Tag Editor</h1>
 
     <p>Click on an item to edit its meta tags. You can also set all of them to <b>autopilot</b> mode.
-    <b>Autopilot</b> means that the plugin will try to retrieve the information from the page itself.
-    <a href="#" class="dpmt-toggle" data-toggle="1">Click here to read how!</a></p>
+    <b>Autopilot</b> means that the plugin will retrieve the informations from the page itself.
+    <a href="#" class="dpmt-toggle" data-toggle="1">Click here to learn how!</a></p>
     
     <div class="dpmt-hidden" data-toggle="1">
         <p><code>Posts:</code> title will be the post title, description will be the excerpt (if set) or the first few sentences, image will be the featured image or the first attached image</p>
@@ -54,153 +54,220 @@ defined('ABSPATH') || die();
     ?>        
     </div>
 
-    <table class="widefat striped">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>General tags <span class="dashicons dashicons-editor-help" data-tip="Lorem ipsum dolor sit amet adepiscing elit."></span></th>
-                <th>Open Graph <span class="dashicons dashicons-editor-help" data-tip="Dolor sit amet adepiscing elit."></span></th>
-                <th>Twitter Cards <span class="dashicons dashicons-editor-help" data-tip="Dolor sit amet adepiscing elit."></span></th>
-                <th>Custom tags <span class="dashicons dashicons-editor-help" data-tip="Dolor sit amet adepiscing elit."></span></th>
-            </tr>
-        </thead>
+    <form method="POST">
+        <div class="table-holder">
+        <table class="widefat striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <?php
+                    
+                    foreach ($dpmt_meta_tag_list as $item => $details){
+                        echo '<th>'. $item .' 
+                        <span class="dashicons dashicons-editor-help" data-tip="'. esc_attr($details['info']) .'"></span></th>';
+                    }
 
-        <tbody>
-        <?php
-            
-            if ( isset($_GET['tab']) ){
+                    ?>                
+                    <th>Custom tags <span class="dashicons dashicons-editor-help" data-tip="<?php 
+                    echo __('Insert your custom meta tags here.', 'dmpt-meta-tags'); ?>"></span></th>
+                </tr>
+            </thead>
 
-                switch ( $_GET['tab'] ){
+            <tbody>
+            <?php
 
-                    case 'posts':
-                        $list = get_posts( array(
-                            'post_status' => 'publish',
-                            'posts_per_page' => -1
-                        ) );
+                $taginfo = new DPMT_Retrieve_Tags( $dpmt_meta_tag_list );
 
-                        $type = 'post';
-                        $queryID = 'ID';
-                        $queryTitle = 'post_title';
+
+                // list all items
+                $items_per_page = -1;
+
+                if ( isset($_GET['tab']) ){
+
+                    switch ( $_GET['tab'] ){
+
+                        case 'posts':
+                            $list = get_posts( array(
+                                'post_status' => 'publish',
+                                'posts_per_page' => $items_per_page
+                            ) );
+
+                            $type = 'post';
+                            $query_ID = 'ID';
+                            $query_title = 'post_title';
+                            
+                            break;
+
+
+                        case 'categories':
+                            $list = get_categories();
+
+                            $type = 'category';
+                            $query_ID = 'term_id';
+                            $query_title = 'name';
+
+                            break;
+
+
+                        case 'tags':
+                            $list = get_tags();
+
+                            $type = 'tag';
+                            $query_ID = 'term_id';
+                            $query_title = 'name';
+
+                            break;
+
+
+                        case 'authors':
+                            $list = get_users( array(
+                                'orderby' => 'display_name'
+                            ) );
+
+                            $type = 'author';
+                            $query_ID = 'ID';
+                            $query_title = 'display_name';
+
+                            break;
+                            break;
+
+
+                        case 'woo-products':
+                            $list = get_posts( array(
+                                'post_type' => 'product', 
+                                'posts_per_page' => $items_per_page,
+                                'orderby' => 'name',
+                                'order' => 'ASC'
+                            ) );
+
+                            $type = 'woo-product';
+                            $query_ID = 'ID';
+                            $query_title = 'post_title';
+
+                            break;
+
+
+                        case 'woo-categories':
+                            $list = get_terms( array(
+                                'taxonomy' => 'product_cat'
+                            ) );
+
+                            $type = 'woo-category';
+                            $query_ID = 'term_id';
+                            $query_title = 'name';
+
+                            break;
+
+
+                        case 'woo-tags':
+                            $list = get_terms( array(
+                                'taxonomy' => 'product_tag'
+                            ) );
+
+                            $type = 'woo-tag';
+                            $query_ID = 'term_id';
+                            $query_title = 'name';
+
+                            break;
+
+
+                        default:
+
+                            $list = array();
+
+                            break;
+
+                    }
+
+                }else{
+
+                    $list = get_pages( array(
+                        'post_type' => 'page',
+                        'post_status' => 'publish', 
+                        'posts_per_page' => $items_per_page
+                    ) );
+
+
+                    if ( get_option('page_on_front') == 0 ){
                         
-                        break;
+                        $frontpage = (object) [
+                            'ID' => 'front',
+                            'post_title' => 'Frontpage'
+                        ];
+                        array_unshift($list, $frontpage);
+                        
+                    }
 
-
-                    case 'categories':
-                        $list = get_categories();
-
-                        $type = 'category';
-                        $queryID = 'ID';
-                        $queryTitle = 'name';
-
-                        break;
-
-
-                    case 'tags':
-                        $list = get_tags();
-
-                        $type = 'tag';
-                        $queryID = 'term_id';
-                        $queryTitle = 'name';
-
-                        break;
-
-
-                    case 'authors':
-                        $list = get_users( array(
-                            'orderby' => 'display_name'
-                        ) );
-
-                        $type = 'author';
-                        $queryID = 'ID';
-                        $queryTitle = 'display_name';
-
-                        break;
-                        break;
-
-
-                    case 'woo-products':
-                        $list = get_posts( array(
-                            'post_type' => 'product', 
-                            'posts_per_page' => -1,
-                            'orderby' => 'name',
-                            'order' => 'ASC'
-                        ) );
-
-                        $type = 'woo-product';
-                        $queryID = 'ID';
-                        $queryTitle = 'post_title';
-
-                        break;
-
-
-                    case 'woo-categories':
-                        $list = get_terms( array(
-                            'taxonomy' => 'product_cat'
-                        ) );
-
-                        $type = 'woo-category';
-                        $queryID = 'term_id';
-                        $queryTitle = 'name';
-
-                        break;
-
-
-                    case 'woo-tags':
-                        $list = get_terms( array(
-                            'taxonomy' => 'product_tag'
-                        ) );
-
-                        $type = 'woo-tag';
-                        $queryID = 'term_id';
-                        $queryTitle = 'name';
-
-                        break;
-
-
-                    default:
-
-                        $list = array();
-
-                        break;
+                    $type = 'page';
+                    $query_ID = 'ID';
+                    $query_title = 'post_title';
 
                 }
 
-            }else{
+                
 
-                $list = get_pages( array(
-                    'post_type' => 'page',
-                    'post_status' => 'publish', 
-                    'posts_per_page' => -1
-                ) );
+                if ( ! empty($list) ){
+                    foreach ( $list as $item ){
 
-                $type = 'page';
-                $queryID = 'ID';
-                $queryTitle = 'post_title';
+                        echo '                
+                        <tr>
+                            <td>';
+                                if ($item->{$query_ID} == 'front'){
+                                    echo '<i><b><a href="options-general.php?page='. $_GET['page'] .'&type='. $type .'&edit='. 
+                                    $item->{$query_ID} .'">'. $item->{$query_title} .'</a></b></i>
+                                    <span class="dashicons dashicons-editor-help" data-tip="'. 
+                                    esc_attr('Your homepage displays the latest posts, you\'ll need meta tags there as well.')
+                                    .'"></span>';
+                                }else{
+                                    echo '<a href="options-general.php?page='. $_GET['page'] .'&type='. $type .'&edit='. 
+                                    $item->{$query_ID} .'">'. $item->{$query_title} .'</a>';
+                                }
+                            echo '
+                            </td>';
 
-            }
+                            $statuses = $taginfo->get_status( $type, $item->{$query_ID} );
+                            foreach ($statuses as $group => $status){  
+                                echo '<td>'. $status .'</td>';
+                            }
 
-            
+                            echo '
+                        </tr>
+                        ';
 
-            if ( ! empty($list) ){
-                foreach ( $list as $item ){
-
-                    echo '                
-                    <tr>
-                        <td>
-                            <a href="options-general.php?page='. $_GET['page'] .'&type='. $type .'&edit='. $item->{$queryID} .'">'. 
-                            $item->{$queryTitle} .'</a>
-                        </td>
-                        <td>x</td>
-                        <td>x</td>
-                        <td>x</td>
-                        <td>x</td>
-                    </tr>
-                    ';
-
+                    }
                 }
-            }
 
-        ?>
-        </tbody>    
-    </table>
+            ?>
+            </tbody>    
+
+            <tfoot>
+                <tr>
+                    <th><input type="submit" id="doaction" class="button action" value="Apply Bulk Actions"  /></th>
+                    <?php 
+
+                        foreach ($dpmt_meta_tag_list as $group => $info){
+                            echo '
+                            <td>
+                                <select name="bulk-'. esc_attr($info['var']) .'" id="bulk-action-selector-bottom">
+                                    <option value="-1">Bulk Actions</option>
+                                    <option value="autopilot">Set all to autopilot</option>
+                                    <option value="delete">Delete all</option>
+                                </select>
+                            </td>
+                            ';
+                        }
+
+                    ?>
+                    <td>
+                        <select name="bulk-custom" id="bulk-action-selector-bottom">
+                            <option value="-1">Bulk Actions</option>
+                            <option value="delete">Delete all</option>
+                        </select>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        </div>
+    </form>
+
 </div>

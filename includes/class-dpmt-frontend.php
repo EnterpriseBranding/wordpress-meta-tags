@@ -19,7 +19,7 @@ class DPMT_Frontend {
     // include all the classes and functions we need
     public function includes(){
 
-        include_once dirname( __FILE__ ) . '/dpmt-meta-tag-list.php';   
+        include_once dirname( __FILE__ ) . '/meta-tag-list.php';   
 
     }
 
@@ -32,7 +32,7 @@ class DPMT_Frontend {
 
         // get the proper id
 
-        // get meta tags from postmeta table
+        // get meta tags from db using DPMT_Retrieve_Tags class
 
     }
 
