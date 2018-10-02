@@ -79,25 +79,25 @@ class DPMT_Retrieve_Tags {
             case 'tag':      
             case 'woo-category':
             case 'woo-tag':              
-                $retrieved_tag_list['custom'] = get_term_meta($id, 'dpmt_custom', true);
+                $retrieved_tag_list['Custom'] = get_term_meta($id, 'dpmt_custom', true);
 
                 break;
 
 
             case 'author':
-                $retrieved_tag_list['custom'] = get_user_meta($id, 'dpmt_custom', true);
+                $retrieved_tag_list['Custom'] = get_user_meta($id, 'dpmt_custom', true);
 
                 break;
 
 
             case 'frontpage':                        
-                $retrieved_tag_list['custom'] = get_option( 'dpmt_frontpage_' . 'dpmt_custom');
+                $retrieved_tag_list['Custom'] = get_option( 'dpmt_frontpage_' . 'dpmt_custom');
 
                 break;
             
 
             default:                        
-                $retrieved_tag_list['custom'] = get_post_meta($id, 'dpmt_custom', true);
+                $retrieved_tag_list['Custom'] = get_post_meta($id, 'dpmt_custom', true);
 
                 break;
 
@@ -125,11 +125,16 @@ class DPMT_Retrieve_Tags {
             $found_auto = 0;
             $found_custom = 0;
 
-            if ( ! empty($tags) && is_array($tags) ){
+            if ( $group == 'Custom' && ! empty($tags) ){
+
+                $found_custom = 1;
+
+            }elseif ( ! empty($tags) && is_array($tags) ){
+             
                 foreach ( $tags as $tag => $value ){
 
                     if ( ! empty( $value ) ){
-                        if ( substr($value, 0, 5) == 'auto|' ){
+                        if ( $value == 'auto' ){
                             $found_auto = 1;
                         }else{
                             $found_custom = 1;
@@ -138,6 +143,7 @@ class DPMT_Retrieve_Tags {
                     }
 
                 }
+
             }
 
 

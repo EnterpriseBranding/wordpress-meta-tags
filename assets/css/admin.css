@@ -14,17 +14,17 @@
 }
 
 
-.dpmt-editor h1{
+.dpmt-table h1{
     margin-bottom: 30px;
 }
 
 
-.dpmt-editor .dashicons-editor-help{
+.dpmt-table .dashicons-editor-help{
     cursor: help;
     position: relative;
 }
 
-.dpmt-editor .dashicons-editor-help:after{
+.dpmt-table .dashicons-editor-help:after{
     content: attr(data-tip);
     font-size: 13px;
     font-family: sans-serif;
@@ -45,12 +45,12 @@
     min-width: 100px;
 }
 
-.dpmt-editor table tbody .dashicons-editor-help:after{
+.dpmt-table table tbody .dashicons-editor-help:after{
     right: auto;
 }
 
 
-.dpmt-editor .dashicons-editor-help:hover:after {
+.dpmt-table .dashicons-editor-help:hover:after {
     visibility: visible;
     opacity: 1
 }
@@ -65,16 +65,16 @@
     background-color: #fff;
 }
 
-.dpmt-editor table{
+.dpmt-table table{
     min-width: 820px;    
 }
 
-.dpmt-editor table tbody tr:hover{
+.dpmt-table table tbody tr:hover{
     background-color: #ecf7f9;
 }
 
 @media only screen and (max-width: 783px) { 
-    .dpmt-editor .table-holder{
+    .dpmt-table .table-holder{
         width: 100%;
         overflow: auto;
     }
@@ -82,9 +82,14 @@
 
 
 @media only screen and (max-width: 980px) { 
-    .dpmt-editor .nav-tab{
+    .dpmt-table .nav-tab{
         border: 1px solid #ccc;
         margin-right: 15px;
         margin-bottom: 15px;
     }
+}
+
+
+.dpmt-editor .regular-text {
+    width: 40em;
 }

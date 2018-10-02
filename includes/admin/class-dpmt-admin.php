@@ -12,20 +12,12 @@ class DPMT_Admin {
         
         register_activation_hook( DPMT_PLUGIN_FILE, array( $this, 'on_activation' ) );
         add_action( 'upgrader_process_complete', array( $this, 'on_update' ) );
-        add_action( 'admin_init', array( $this, 'includes' ) );
         add_action( 'admin_init', array( $this, 'set_notices' ) );        
         add_filter( 'plugin_action_links_' . DPMT_PLUGIN_FILE, array( $this, 'add_action_link' ) );
-        add_action( 'admin_menu', array( $this, 'add_editor_to_settings') );
+        add_action( 'admin_menu', array( $this, 'add_admin_pages') );
         add_action( 'admin_enqueue_scripts', array( $this, 'add_css_js' ) );
         add_action( 'admin_footer_text', array( $this, 'change_footer_text' ) );
                     
-    }
-
-
-
-    // include all the classes and functions we need
-    public function includes(){
-        
     }
 
 
@@ -51,7 +43,7 @@ class DPMT_Admin {
     // add action link below the plugin on plugins page
     public function add_action_link( $links ) {
 
-        $new = '<a href="' . admin_url( 'options-general.php?page=dpmt-settings' ) . '">' . 
+        $new = '<a href="' . admin_url( 'options-general.php?page=dpmt-editor' ) . '">' . 
             esc_attr__('Set up tags', 'dp-meta-tags') . '</a>';               
         
         array_unshift( $links, $new );
@@ -62,28 +54,38 @@ class DPMT_Admin {
 
 
 
-    // add  meta tag editor link settings menu
-    public function add_editor_to_settings(){
+    // add plugin pages to the admin menu
+    public function add_admin_pages(){
 
         add_submenu_page(
             'options-general.php',
             esc_html__( 'Meta tags', 'dp-meta-tags' ),
             esc_html__( 'Meta tags', 'dp-meta-tags' ),
             'manage_options',
-            'dpmt-settings',
-            array( $this, 'meta_tag_editor_page' )
+            'dpmt-editor',
+            array( $this, 'meta_tag_pages' )
         );
 
     }
 
 
 
-    // display meta tag editor page
-    public function meta_tag_editor_page(){
+    // display meta tag table page
+    public function meta_tag_pages(){
         
         include_once dirname( plugin_dir_path( __FILE__ ) ) . '/meta-tag-list.php';
         include_once dirname( plugin_dir_path( __FILE__ ) ) . '/class-dpmt-retrieve-tags.php';
-        include_once 'views/html-tag-editor.php';
+
+        if ( ! empty($_GET['type']) && ! empty($_GET['edit']) ){
+            
+            include_once dirname( plugin_dir_path( __FILE__ ) ) . '/class-dpmt-retrieve-info.php';
+            include_once 'views/html-meta-tag-editor.php';        
+
+        }else{
+
+            include_once 'views/html-meta-tag-table.php';
+
+        }
 
     }
 
@@ -110,7 +112,8 @@ class DPMT_Admin {
             if( get_transient( 'dmpt_update_notice' ) ){
 
                 echo '<div class="notice notice-info is-dismissible"><p>
-                New interface! Visit <b>Settings / Meta tags</b> to edit all of them in one table!
+                New interface! Visit <b>Settings / Meta tags</b> to edit all of them in one table! Don\'t worry, 
+                your old settings won\'t be lost!
                 </p></div>';
                 
                 delete_transient( 'dmpt_update_notice' );
@@ -159,7 +162,7 @@ class DPMT_Admin {
     // change footer text
     public function change_footer_text($footer_text){
 
-        if( !empty($_GET['page']) && $_GET['page'] == 'dpmt-settings' ){
+        if( !empty($_GET['page']) && $_GET['page'] == 'dpmt-editor' ){
             $footer_text = sprintf(
                 __( 'If you like our %1$s please leave us a %2$s rating. Thank you in advance!', 'dp-meta-tags' ), 
                 sprintf( '<strong>%s</strong>', esc_html__( 'Meta Tags plugin', 'dp-meta-tags' ) ), 

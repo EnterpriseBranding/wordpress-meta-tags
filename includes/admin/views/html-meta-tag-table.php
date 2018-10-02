@@ -1,6 +1,6 @@
 <?php
 /*
- * Displays the meta tag editor table.
+ * Displays the meta tags in a table.
  */
 
 defined('ABSPATH') || die();
@@ -9,8 +9,8 @@ defined('ABSPATH') || die();
 
 
 
-<div class="wrap dpmt-editor">
-    <h1>Meta Tag Editor</h1>
+<div class="wrap dpmt-table">
+    <h1>Meta Tags</h1>
 
     <p>Click on an item to edit its meta tags. You can also set all of them to <b>autopilot</b> mode.
     <b>Autopilot</b> means that the plugin will retrieve the informations from the page itself.

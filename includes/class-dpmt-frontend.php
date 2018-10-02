@@ -34,6 +34,8 @@ class DPMT_Frontend {
 
         // get meta tags from db using DPMT_Retrieve_Tags class
 
+        // if a tag is set to autopilot: use a class to retrieve information on the fly - DPMT_Retrieve_Info
+
     }
 
 
