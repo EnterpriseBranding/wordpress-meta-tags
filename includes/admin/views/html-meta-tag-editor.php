@@ -22,7 +22,6 @@ if ( !is_numeric($_GET['edit']) && $_GET['edit'] != 'front' ){
 // get meta tags
 $taginfo = new DPMT_Retrieve_Tags( $dpmt_meta_tag_list );
 $meta_tags = $taginfo->get_tags($_GET['type'], $_GET['edit']);
-       
 
 
 // get object title
@@ -102,9 +101,30 @@ $iteminfo = new DPMT_Retrieve_Info($_GET['type'], $_GET['edit']);
 
                     }else{
 
-                        echo '
-                        <input name="'. $tag['variable'] .'" type="text" id="'. $tag['variable'] .'" 
-                        value="'. esc_attr($meta_tags[$group][$tag['variable']]) .'" class="regular-text" />';
+                        if( $tag['variable'] == 'dpmt_custom' ){
+                            
+                            $allowed_html = array(
+                                'meta' => array(
+                                    'name' => array(),
+                                    'property' => array(),
+                                    'http-equiv' => array(),
+                                    'content' => array()
+                                )
+                            );
+
+                            echo '
+                            <textarea name="'. esc_attr($tag['variable']) .'" id="'. esc_attr($tag['variable']) .'" class="regular-text code" rows="3" placeholder="'. 
+                            htmlentities('<meta name="" content="" />') .'">'. 
+                            wp_kses($meta_tags[$group][$tag['variable']], $allowed_html) .
+                            '</textarea>';
+
+                        }else{
+
+                            echo '
+                            <input name="'. esc_attr($tag['variable']) .'" type="text" id="'. esc_attr($tag['variable']) .'" 
+                            value="'. esc_attr($meta_tags[$group][$tag['variable']]) .'" class="regular-text" />';
+
+                        }
 
                     }
 
@@ -120,30 +140,7 @@ $iteminfo = new DPMT_Retrieve_Info($_GET['type'], $_GET['edit']);
 
     ?>
 
-        <table class="form-table">
-            <tr>
-                <th scope="row"><label for="dpmt_custom">Custom meta tags</label></th>
-                <td>
-                    <?php 
 
-                    $allowed_html = array(
-                        'meta' => array(
-                            'name' => array(),
-                            'property' => array(),
-                            'http-equiv' => array(),
-                            'content' => array()
-                        )
-                    );
-
-                    echo '
-                    <textarea name="dpmt_custom" id="dpmt_custom" class="regular-text code" rows="3" placeholder="'. 
-                    htmlentities('<meta name="" content="" />') .'">'. wp_kses($meta_tags['Custom'], $allowed_html) .
-                    '</textarea>';
-
-                    ?>                    
-                </td>
-            </tr>
-        </table>
 
         <p class="submit">
             <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes"  />

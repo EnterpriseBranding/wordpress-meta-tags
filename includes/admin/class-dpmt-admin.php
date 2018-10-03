@@ -18,6 +18,7 @@ class DPMT_Admin {
         add_action( 'admin_enqueue_scripts', array( $this, 'add_css_js' ) );
         add_action( 'admin_footer_text', array( $this, 'change_footer_text' ) );
         add_action( 'admin_post_dpmt_editor_form_submit', array( $this, 'save_meta_tags' ) );
+        add_action( 'admin_post_dpmt_table_bulk_submit', array( $this, 'table_bulk_actions' ) );
 
     }
 
@@ -203,6 +204,52 @@ class DPMT_Admin {
 
     }
 
+
+
+    // table bulk actions
+    public function table_bulk_actions(){
+
+        // check nonce
+        check_admin_referer( 'dpmt-bulk-actions' );
+
+        
+        // check user capabilities
+        if ( ! current_user_can('edit_others_pages') ){
+            wp_die( 'You don\'t have permission to edit meta tags!' );
+        }
+
+
+        // process and update tags
+        include_once dirname( plugin_dir_path( __FILE__ ) ) . '/meta-tag-list.php';
+        include_once 'class-dpmt-save-tags.php';    
+
+        $type = $_POST['dpmt_type'];
+        
+
+        // figure out which meta tag group needs update
+        $groups = [ 'general', 'og', 'twitter', 'custom' ];
+
+
+        foreach( $groups as $group ){
+
+            if ( $_POST['bulk-'. $group] == 'autopilot' ){
+
+                DPMT_Save_Tags::autopilot( $dpmt_meta_tag_list, $type, $group );
+
+            }elseif( $_POST['bulk-'. $group] == 'delete' ){
+
+                DPMT_Save_Tags::delete( $dpmt_meta_tag_list, $type, $group );
+
+            }
+
+        }
+
+        die();
+
+        // redirect to previous page
+        wp_redirect( admin_url( 'options-general.php?page=dpmt-editor' ) );
+
+    }
 
 
 }

@@ -10,6 +10,5 @@ A powerful plugin to edit meta tags on all your pages, posts, categories, tags f
 ## To-Do List
 * Make it translation ready
 * Create PHPUnit tests
-* A class to handle the listing of WP object types in table
 * Make pagination for table
 * Create a nice class to handle notices, maybe

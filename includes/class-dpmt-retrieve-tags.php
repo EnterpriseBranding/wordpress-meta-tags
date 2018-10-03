@@ -35,7 +35,6 @@ class DPMT_Retrieve_Tags {
         foreach ( $this->list_of_meta_tags as $group => $item ){
 
             foreach ( $item['fields'] as $tag => $field ){
-                
                 switch ($type) {
 
                     case 'category':
@@ -70,39 +69,6 @@ class DPMT_Retrieve_Tags {
 
         }
 
-
-
-        // get custom tags too
-        switch ($type) {
-
-            case 'category':
-            case 'tag':      
-            case 'woo-category':
-            case 'woo-tag':              
-                $retrieved_tag_list['Custom'] = get_term_meta($id, 'dpmt_custom', true);
-
-                break;
-
-
-            case 'author':
-                $retrieved_tag_list['Custom'] = get_user_meta($id, 'dpmt_custom', true);
-
-                break;
-
-
-            case 'frontpage':                        
-                $retrieved_tag_list['Custom'] = get_option( 'dpmt_frontpage_' . 'dpmt_custom');
-
-                break;
-            
-
-            default:                        
-                $retrieved_tag_list['Custom'] = get_post_meta($id, 'dpmt_custom', true);
-
-                break;
-
-        }
-        
 
 
         // set status

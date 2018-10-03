@@ -30,31 +30,31 @@ defined('ABSPATH') || die();
         <a href="options-general.php?page='. $_GET['page'] .'" 
             class="nav-tab'. (empty($_GET['tab']) ? ' nav-tab-active' : '') .'">Pages</a>
         
-        <a href="options-general.php?page='. $_GET['page'] .'&tab=posts" 
-            class="nav-tab'. (!empty($_GET['tab']) && $_GET['tab'] == 'posts' ? ' nav-tab-active' : '') .'">Posts</a>
+        <a href="options-general.php?page='. $_GET['page'] .'&tab=post" 
+            class="nav-tab'. (!empty($_GET['tab']) && $_GET['tab'] == 'post' ? ' nav-tab-active' : '') .'">Posts</a>
         
-        <a href="options-general.php?page='. $_GET['page'] .'&tab=categories" 
-            class="nav-tab'. (!empty($_GET['tab']) && $_GET['tab'] == 'categories' ? ' nav-tab-active' : '') .'">Post Categories</a>
+        <a href="options-general.php?page='. $_GET['page'] .'&tab=category" 
+            class="nav-tab'. (!empty($_GET['tab']) && $_GET['tab'] == 'category' ? ' nav-tab-active' : '') .'">Post Categories</a>
         
-        <a href="options-general.php?page='. $_GET['page'] .'&tab=tags" 
-            class="nav-tab'. (!empty($_GET['tab']) && $_GET['tab'] == 'tags' ? ' nav-tab-active' : '') .'">Post Tags</a>        
+        <a href="options-general.php?page='. $_GET['page'] .'&tab=tag" 
+            class="nav-tab'. (!empty($_GET['tab']) && $_GET['tab'] == 'tag' ? ' nav-tab-active' : '') .'">Post Tags</a>        
         
-        <a href="options-general.php?page='. $_GET['page'] .'&tab=authors" 
-            class="nav-tab'. (!empty($_GET['tab']) && $_GET['tab'] == 'authors' ? ' nav-tab-active' : '') .'">Authors</a>
+        <a href="options-general.php?page='. $_GET['page'] .'&tab=author" 
+            class="nav-tab'. (!empty($_GET['tab']) && $_GET['tab'] == 'author' ? ' nav-tab-active' : '') .'">Authors</a>
         
-        <a href="options-general.php?page='. $_GET['page'] .'&tab=woo-products" 
-            class="nav-tab'. (!empty($_GET['tab']) && $_GET['tab'] == 'woo-products' ? ' nav-tab-active' : '') .'">Woo Products</a>
+        <a href="options-general.php?page='. $_GET['page'] .'&tab=woo-product" 
+            class="nav-tab'. (!empty($_GET['tab']) && $_GET['tab'] == 'woo-product' ? ' nav-tab-active' : '') .'">Woo Products</a>
         
-        <a href="options-general.php?page='. $_GET['page'] .'&tab=woo-categories" 
-            class="nav-tab'. (!empty($_GET['tab']) && $_GET['tab'] == 'woo-categories' ? ' nav-tab-active' : '') .'">Woo Categories</a>
+        <a href="options-general.php?page='. $_GET['page'] .'&tab=woo-category" 
+            class="nav-tab'. (!empty($_GET['tab']) && $_GET['tab'] == 'woo-category' ? ' nav-tab-active' : '') .'">Woo Categories</a>
         
-        <a href="options-general.php?page='. $_GET['page'] .'&tab=woo-tags" 
-            class="nav-tab'. (!empty($_GET['tab']) && $_GET['tab'] == 'woo-tags' ? ' nav-tab-active' : '') .'">Woo Tags</a>
+        <a href="options-general.php?page='. $_GET['page'] .'&tab=woo-tag" 
+            class="nav-tab'. (!empty($_GET['tab']) && $_GET['tab'] == 'woo-tag' ? ' nav-tab-active' : '') .'">Woo Tags</a>
         ';
     ?>        
     </div>
 
-    <form method="POST">
+    <form method="POST" action="<?php echo admin_url('admin-post.php'); ?>">
         <div class="table-holder">
         <table class="widefat striped">
             <thead>
@@ -68,8 +68,6 @@ defined('ABSPATH') || die();
                     }
 
                     ?>                
-                    <th>Custom tags <span class="dashicons dashicons-editor-help" data-tip="<?php 
-                    echo __('Insert your custom meta tags here.', 'dmpt-meta-tags'); ?>"></span></th>
                 </tr>
             </thead>
 
@@ -86,7 +84,7 @@ defined('ABSPATH') || die();
 
                     switch ( $_GET['tab'] ){
 
-                        case 'posts':
+                        case 'post':
                             $list = get_posts( array(
                                 'post_status' => 'publish',
                                 'posts_per_page' => $items_per_page
@@ -99,7 +97,7 @@ defined('ABSPATH') || die();
                             break;
 
 
-                        case 'categories':
+                        case 'category':
                             $list = get_categories();
 
                             $type = 'category';
@@ -109,7 +107,7 @@ defined('ABSPATH') || die();
                             break;
 
 
-                        case 'tags':
+                        case 'tag':
                             $list = get_tags();
 
                             $type = 'tag';
@@ -119,7 +117,7 @@ defined('ABSPATH') || die();
                             break;
 
 
-                        case 'authors':
+                        case 'author':
                             $list = get_users( array(
                                 'orderby' => 'display_name'
                             ) );
@@ -132,7 +130,7 @@ defined('ABSPATH') || die();
                             break;
 
 
-                        case 'woo-products':
+                        case 'woo-product':
                             $list = get_posts( array(
                                 'post_type' => 'product', 
                                 'posts_per_page' => $items_per_page,
@@ -147,7 +145,7 @@ defined('ABSPATH') || die();
                             break;
 
 
-                        case 'woo-categories':
+                        case 'woo-category':
                             $list = get_terms( array(
                                 'taxonomy' => 'product_cat'
                             ) );
@@ -159,7 +157,7 @@ defined('ABSPATH') || die();
                             break;
 
 
-                        case 'woo-tags':
+                        case 'woo-tag':
                             $list = get_terms( array(
                                 'taxonomy' => 'product_tag'
                             ) );
@@ -241,29 +239,50 @@ defined('ABSPATH') || die();
             </tbody>    
 
             <tfoot>
-                <tr>
-                    <th><input type="submit" id="doaction" class="button action" value="Apply Bulk Actions"  /></th>
+                <tr>                    
                     <?php 
 
-                        foreach ($dpmt_meta_tag_list as $group => $info){
-                            echo '
-                            <td>
-                                <select name="bulk-'. esc_attr($info['var']) .'" id="bulk-action-selector-bottom">
-                                    <option value="-1">Bulk Actions</option>
-                                    <option value="autopilot">Set all to autopilot</option>
-                                    <option value="delete">Delete all</option>
-                                </select>
-                            </td>
-                            ';
+                    echo '
+                    <th>
+                        <input type="submit" id="doaction" class="button action" value="Apply Bulk Actions"  />
+                        <input type="hidden" name="dpmt_type" value="';
+                        if ( ! empty($_GET['tab']) ){
+                            echo $_GET['tab'];
+                        }else{
+                            echo 'page';
                         }
+                        echo '"  />
+                        ';
+
+
+                    // we need this line to fire our bulk action function after form submission
+                    echo '<input name="action" type="hidden" value="dpmt_table_bulk_submit" />';
+
+
+                    // nonces for security
+                    wp_nonce_field( 'dpmt-bulk-actions' );
+
+                    echo '</th>';
+
+
+                    foreach ($dpmt_meta_tag_list as $group => $info){
+                        echo '
+                        <td>
+                            <select name="bulk-'. esc_attr($info['var']) .'" id="bulk-action-selector-bottom">
+                                <option value="-1">Bulk Actions</option>';
+
+                        if ( $group != 'Custom' ){
+                            echo '<option value="autopilot">Set all to autopilot</option>';
+                        }
+                        
+                        echo '                                
+                                <option value="delete">Delete all</option>
+                            </select>
+                        </td>
+                        ';
+                    }
 
                     ?>
-                    <td>
-                        <select name="bulk-custom" id="bulk-action-selector-bottom">
-                            <option value="-1">Bulk Actions</option>
-                            <option value="delete">Delete all</option>
-                        </select>
-                    </td>
                 </tr>
             </tfoot>
         </table>

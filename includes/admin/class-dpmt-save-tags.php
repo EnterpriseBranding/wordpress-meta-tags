@@ -20,16 +20,7 @@ class DPMT_Save_Tags {
         $type = $data['dpmt_id'] == 'front' ? 'frontpage' : $data['dpmt_type'];
 
 
-        // get list of all possible meta tags (plus custom) and walk them
-        $list_of_meta_tags['Custom'] = [
-            'fields' => [
-                '0' => [
-                    'variable' => 'dpmt_custom'
-                ]
-            ]
-        ];
-
-
+        // get list of all possible meta tags and walk them
         foreach ( $list_of_meta_tags as $group => $item ){
 
             foreach ( $item['fields'] as $tag => $field ){
@@ -96,24 +87,56 @@ class DPMT_Save_Tags {
 
 
     // clear all meta tags in a group (bulk action) 
-    public static function delete( $type, $meta_tag_group ){
+    public static function delete( $list_of_meta_tags, $wp_object_type, $meta_tag_group ){
+
+        // get type so we'll know how to save things
+        $possible_types = [ 'page', 'post', 'category', 'tag', 'author', 'woo-product', 'woo-category', 'woo-tag' ];
+        
+        if ( ! in_array( $wp_object_type, $possible_types )){
+            return;
+        }
+
 
         // get list of all possible meta tags in that group
 
-        // get all items by type and delete meta tags
 
+        // get all items by type and delete meta tags
+        // echo 'delete: '. $meta_tag_group . ' tags for all ' . $wp_object_type . PHP_EOL;
 
     }
 
 
     
     // set all meta tags to autopilot in a group (bulk action)
-    public static function autopilot( $type, $meta_tag_group ){
+    public static function autopilot( $list_of_meta_tags, $wp_object_type, $meta_tag_group ){
 
-        // get list of all possible meta tags in that group
+        // get type so we'll know how to save things
+        $possible_types = [ 'page', 'post', 'category', 'tag', 'author', 'woo-product', 'woo-category', 'woo-tag' ];
+        
+        if ( ! in_array( $wp_object_type, $possible_types )){
+            return;
+        }
+
+        echo 'autopilot: '. $meta_tag_group . ' tags for all ' . $wp_object_type . PHP_EOL;
+
+        // get list of all possible meta tags in that group      
+        $fields_to_update = [];  
+        foreach ( $list_of_meta_tags as $group => $item ){
+
+            if ( $item['var'] == $meta_tag_group ){
+
+                foreach( $item['fields'] as $k => $v ){
+                    $fields_to_update[] = $v['variable'];
+                }
+
+            }
+
+        }
+
 
         // get all items by type and set meta tags to "auto"
-
+        // DPMT_Retrieve_List::( $wp_object_type )
+       
 
     }
 

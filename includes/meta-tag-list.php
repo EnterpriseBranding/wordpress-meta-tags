@@ -116,6 +116,19 @@ $dpmt_meta_tag_list = [
                 'variable' => 'dpmt_twitter_player_stream'
             ]
         ]
+    ],
+
+
+
+    'Custom' => [
+        'var' => 'custom',
+        'info' => 'Insert your custom meta tags here.',
+        'fields' => [
+            'Custom meta tags' => [
+                'info' => '',                
+                'variable' => 'dpmt_custom'
+            ],
+        ]
     ]
 
 ];
