@@ -17,7 +17,8 @@ class DPMT_Admin {
         add_action( 'admin_menu', array( $this, 'add_admin_pages') );
         add_action( 'admin_enqueue_scripts', array( $this, 'add_css_js' ) );
         add_action( 'admin_footer_text', array( $this, 'change_footer_text' ) );
-                    
+        add_action( 'admin_post_dpmt_editor_form_submit', array( $this, 'save_meta_tags' ) );
+
     }
 
 
@@ -164,13 +165,41 @@ class DPMT_Admin {
 
         if( !empty($_GET['page']) && $_GET['page'] == 'dpmt-editor' ){
             $footer_text = sprintf(
-                __( 'If you like our %1$s please leave us a %2$s rating. Thank you in advance!', 'dp-meta-tags' ), 
+                __( 'Found a bug? Please <a href="https://divpusher.com/contact" target="_blank">report it here</a> and we will fix that as soon as we can!<br />
+                    If you like our %1$s please leave us a %2$s rating. Thank you in advance!', 'dp-meta-tags' ), 
                 sprintf( '<strong>%s</strong>', esc_html__( 'Meta Tags plugin', 'dp-meta-tags' ) ), 
-                '<a href="https://wordpress.org/support/plugin/meta-tags/reviews?rate=5#new-post" target="_blank" class="dpmt-rating-link" data-rated="' . esc_attr__( 'Thanks :)', 'dp-meta-tags' ) . '">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
+                '<a href="https://wordpress.org/support/plugin/meta-tags/reviews?rate=5#new-post" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
             );
         }
         
         return $footer_text;
+
+    }
+
+
+
+    // save meta tags
+    public function save_meta_tags(){
+
+        // check nonce
+        check_admin_referer( 'dpmt-save-changes' );
+
+        
+        // check user capabilities
+        if ( ! current_user_can('edit_others_pages') ){
+            wp_die( 'You don\'t have permission to edit meta tags!' );
+        }
+
+
+        // process and save tags
+        include_once dirname( plugin_dir_path( __FILE__ ) ) . '/meta-tag-list.php';
+        include_once 'class-dpmt-save-tags.php';       
+
+        DPMT_Save_Tags::save( $dpmt_meta_tag_list, $_POST );
+
+
+        // redirect to previous page
+        wp_redirect( admin_url( 'options-general.php?page=dpmt-editor&type='. $_POST['dpmt_type'] .'&edit='. $_POST['dpmt_id'] ) );
 
     }
 

@@ -14,7 +14,7 @@ jQuery(function($) {
 
         e.preventDefault();
 
-        $('.dpmt-editor form input, .dpmt-editor form select').val('auto');
+        $('.dpmt-editor form input[type=text], .dpmt-editor form select').val('auto');
 
     });
 
@@ -25,7 +25,7 @@ jQuery(function($) {
 
         e.preventDefault();
 
-        $('.dpmt-editor form input, .dpmt-editor form select, .dpmt-editor form textarea').val('');
+        $('.dpmt-editor form input[type=text], .dpmt-editor form select, .dpmt-editor form textarea').val('');
 
     });
 

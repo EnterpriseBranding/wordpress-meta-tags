@@ -44,9 +44,22 @@ $iteminfo = new DPMT_Retrieve_Info($_GET['type'], $_GET['edit']);
     <a href="#" class="page-title-action dpmt-set-all-auto">Set All to Autopilot</a>
     <a href="#" class="page-title-action dpmt-clear-all">Clear All</a>
 
-    <form method="POST">
         
     <?php 
+
+    echo '<form method="POST" action="' . admin_url('admin-post.php') . '">';
+
+
+    // we need this line to fire our form processor function after submission
+    echo '<input name="action" type="hidden" value="dpmt_editor_form_submit" />';
+
+
+    // submit item type and id via post method as well
+    echo '
+    <input name="dpmt_type" type="hidden" value="'. $_GET['type'] .'" />
+    <input name="dpmt_id" type="hidden" value="'. $_GET['edit'] .'" />
+    ';
+
 
     // nonces for security
     wp_nonce_field( 'dpmt-save-changes' );
@@ -109,7 +122,7 @@ $iteminfo = new DPMT_Retrieve_Info($_GET['type'], $_GET['edit']);
 
         <table class="form-table">
             <tr>
-                <th scope="row"><label for="custom">Custom meta tags</label></th>
+                <th scope="row"><label for="dpmt_custom">Custom meta tags</label></th>
                 <td>
                     <?php 
 
@@ -123,16 +136,18 @@ $iteminfo = new DPMT_Retrieve_Info($_GET['type'], $_GET['edit']);
                     );
 
                     echo '
-                    <textarea name="custom" id="custom" class="regular-text code" rows="3" placeholder="'. htmlentities('<meta name="" content="" />') .'">'. wp_kses($meta_tags['Custom'], $allowed_html) .'</textarea>
-                    ';
+                    <textarea name="dpmt_custom" id="dpmt_custom" class="regular-text code" rows="3" placeholder="'. 
+                    htmlentities('<meta name="" content="" />') .'">'. wp_kses($meta_tags['Custom'], $allowed_html) .
+                    '</textarea>';
 
-                    ?>
-                    
+                    ?>                    
                 </td>
             </tr>
         </table>
 
-        <p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes"  /></p>
+        <p class="submit">
+            <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes"  />
+        </p>
 
     </form>
 
