@@ -86,38 +86,29 @@ class DPMT_Save_Tags {
 
 
 
-    // clear all meta tags in a group (bulk action) 
-    public static function delete( $list_of_meta_tags, $wp_object_type, $meta_tag_group ){
-
-        // get type so we'll know how to save things
-        $possible_types = [ 'page', 'post', 'category', 'tag', 'author', 'woo-product', 'woo-category', 'woo-tag' ];
-        
-        if ( ! in_array( $wp_object_type, $possible_types )){
-            return;
-        }
-
-
-        // get list of all possible meta tags in that group
-
-
-        // get all items by type and delete meta tags
-        // echo 'delete: '. $meta_tag_group . ' tags for all ' . $wp_object_type . PHP_EOL;
-
-    }
-
-
     
-    // set all meta tags to autopilot in a group (bulk action)
-    public static function autopilot( $list_of_meta_tags, $wp_object_type, $meta_tag_group ){
+    // bulk action to clear all tags or set them autopilot (one meta tag group at a time)
+    public static function bulk( $action, $list_of_meta_tags, $wp_object_type, $meta_tag_group ){
+
+        // only delete or autopilot actions are allowed this time
+        if ( ! in_array( $action, array('delete', 'autopilot') ) ){
+            return;
+        }
+
 
         // get type so we'll know how to save things
         $possible_types = [ 'page', 'post', 'category', 'tag', 'author', 'woo-product', 'woo-category', 'woo-tag' ];
         
-        if ( ! in_array( $wp_object_type, $possible_types )){
+        if ( ! in_array( $wp_object_type, $possible_types ) ){
             return;
         }
 
-        echo 'autopilot: '. $meta_tag_group . ' tags for all ' . $wp_object_type . PHP_EOL;
+
+        // we can't set custom meta tags to autopilot
+        if ( $meta_tag_group == 'custom' ){
+            return;
+        }
+
 
         // get list of all possible meta tags in that group      
         $fields_to_update = [];  
@@ -126,17 +117,105 @@ class DPMT_Save_Tags {
             if ( $item['var'] == $meta_tag_group ){
 
                 foreach( $item['fields'] as $k => $v ){
+
                     $fields_to_update[] = $v['variable'];
+
                 }
+
+                break;
 
             }
 
         }
 
 
-        // get all items by type and set meta tags to "auto"
-        // DPMT_Retrieve_List::( $wp_object_type )
-       
+        // get all items of a wp object type and set meta tags to "auto"        
+        $items = DPMT_Retrieve_List::get_list( $wp_object_type );
+
+        if ( ! empty($items['list']) && is_array($items) ){
+            
+            foreach($items['list'] as $item){
+
+                // frontpage
+                if ( $item->{$items['query_ID']} == 'front' ){
+
+                    foreach ( $fields_to_update as $field ){
+
+                        if ( $action == 'autopilot' ){
+                        
+                            update_option( 'dpmt_frontpage_'. $field, 'auto' );
+
+                        }elseif ( $action == 'delete' ){
+            
+                            delete_option( 'dpmt_frontpage_'. $field );                            
+
+                        }
+
+                    }
+                    
+                }else{
+
+                    foreach ( $fields_to_update as $field ){
+
+                        switch ($wp_object_type) {
+
+                            case 'category':
+                            case 'tag':      
+                            case 'woo-category':
+                            case 'woo-tag': 
+                                
+                                if ( $action == 'autopilot' ){
+                                    
+                                    update_term_meta( $item->{$items['query_ID']}, $field, 'auto' );
+
+                                }elseif( $action == 'delete' ){
+
+                                    delete_term_meta( $item->{$items['query_ID']}, $field );
+
+                                }
+
+                                break;
+
+
+                            case 'author':
+
+                                if ( $action == 'autopilot' ){
+                                    
+                                    update_user_meta( $item->{$items['query_ID']}, $field, 'auto' );
+
+                                }elseif( $action == 'delete' ){
+
+                                    delete_user_meta( $item->{$items['query_ID']}, $field );
+
+                                }
+
+                                break;
+
+
+                            default:
+
+                                if ( $action == 'autopilot' ){
+
+                                    update_post_meta( $item->{$items['query_ID']}, $field, 'auto' );
+                                
+                                }elseif( $action == 'delete' ){
+
+                                    delete_post_meta( $item->{$items['query_ID']}, $field );
+
+                                }
+
+                                break;
+
+                        }
+
+                    }  
+
+                }
+
+            }
+
+        }     
+                  
 
     }
 

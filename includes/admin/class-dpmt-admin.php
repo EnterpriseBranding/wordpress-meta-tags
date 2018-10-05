@@ -85,6 +85,7 @@ class DPMT_Admin {
 
         }else{
 
+            include_once 'class-dpmt-retrieve-list.php';
             include_once 'views/html-meta-tag-table.php';
 
         }
@@ -221,6 +222,7 @@ class DPMT_Admin {
 
         // process and update tags
         include_once dirname( plugin_dir_path( __FILE__ ) ) . '/meta-tag-list.php';
+        include_once 'class-dpmt-retrieve-list.php';    
         include_once 'class-dpmt-save-tags.php';    
 
         $type = $_POST['dpmt_type'];
@@ -232,22 +234,17 @@ class DPMT_Admin {
 
         foreach( $groups as $group ){
 
-            if ( $_POST['bulk-'. $group] == 'autopilot' ){
+            if ( $_POST['bulk-'. $group] != -1 ){
 
-                DPMT_Save_Tags::autopilot( $dpmt_meta_tag_list, $type, $group );
-
-            }elseif( $_POST['bulk-'. $group] == 'delete' ){
-
-                DPMT_Save_Tags::delete( $dpmt_meta_tag_list, $type, $group );
-
+                DPMT_Save_Tags::bulk( $_POST['bulk-'. $group], $dpmt_meta_tag_list, $type, $group );
+                
             }
 
         }
 
-        die();
 
         // redirect to previous page
-        wp_redirect( admin_url( 'options-general.php?page=dpmt-editor' ) );
+        wp_redirect( admin_url( 'options-general.php?page=dpmt-editor&tab=' . $type ) );
 
     }
 

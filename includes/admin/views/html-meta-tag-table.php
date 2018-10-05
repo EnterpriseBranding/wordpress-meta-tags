@@ -7,8 +7,6 @@ defined('ABSPATH') || die();
 
 ?>
 
-
-
 <div class="wrap dpmt-table">
     <h1>Meta Tags</h1>
 
@@ -26,31 +24,38 @@ defined('ABSPATH') || die();
 
     <div class="nav-tab-wrapper">
     <?php
-        echo '
-        <a href="options-general.php?page='. $_GET['page'] .'" 
-            class="nav-tab'. (empty($_GET['tab']) ? ' nav-tab-active' : '') .'">Pages</a>
+
+        $possible_types = [
+            'page' => 'Pages',
+            'post' => 'Posts',
+            'category' => 'Post Categories',
+            'tag' => 'Post Tags',
+            'author' => 'Authors',
+            'woo-product' => 'Woo Products',
+            'woo-category' => 'Woo Categories',
+            'woo-tag' => 'Woo Tags',
+        ];
+
+        foreach ( $possible_types as $key => $value ) {
+
+            $key = ($key == 'page' ? '' : $key);
+
+            echo '<a href="options-general.php?page='. $_GET['page'];
+
+            if ( !empty($key) ) {
+                echo '&tab='. $key;
+            }
+
+            echo '" class="nav-tab';
+
+            if ( !empty($_GET['tab']) && $_GET['tab'] == $key || empty($_GET['tab']) && $key == '' ){
+                echo  ' nav-tab-active';
+            }  
+
+            echo '">' . $value . '</a>';
+
+        }
         
-        <a href="options-general.php?page='. $_GET['page'] .'&tab=post" 
-            class="nav-tab'. (!empty($_GET['tab']) && $_GET['tab'] == 'post' ? ' nav-tab-active' : '') .'">Posts</a>
-        
-        <a href="options-general.php?page='. $_GET['page'] .'&tab=category" 
-            class="nav-tab'. (!empty($_GET['tab']) && $_GET['tab'] == 'category' ? ' nav-tab-active' : '') .'">Post Categories</a>
-        
-        <a href="options-general.php?page='. $_GET['page'] .'&tab=tag" 
-            class="nav-tab'. (!empty($_GET['tab']) && $_GET['tab'] == 'tag' ? ' nav-tab-active' : '') .'">Post Tags</a>        
-        
-        <a href="options-general.php?page='. $_GET['page'] .'&tab=author" 
-            class="nav-tab'. (!empty($_GET['tab']) && $_GET['tab'] == 'author' ? ' nav-tab-active' : '') .'">Authors</a>
-        
-        <a href="options-general.php?page='. $_GET['page'] .'&tab=woo-product" 
-            class="nav-tab'. (!empty($_GET['tab']) && $_GET['tab'] == 'woo-product' ? ' nav-tab-active' : '') .'">Woo Products</a>
-        
-        <a href="options-general.php?page='. $_GET['page'] .'&tab=woo-category" 
-            class="nav-tab'. (!empty($_GET['tab']) && $_GET['tab'] == 'woo-category' ? ' nav-tab-active' : '') .'">Woo Categories</a>
-        
-        <a href="options-general.php?page='. $_GET['page'] .'&tab=woo-tag" 
-            class="nav-tab'. (!empty($_GET['tab']) && $_GET['tab'] == 'woo-tag' ? ' nav-tab-active' : '') .'">Woo Tags</a>
-        ';
     ?>        
     </div>
 
@@ -76,154 +81,30 @@ defined('ABSPATH') || die();
 
                 $taginfo = new DPMT_Retrieve_Tags( $dpmt_meta_tag_list );
 
+                // get all items of the wp object type
+                $type = ( !empty($_GET['tab']) ? $_GET['tab'] : 'page' );
+                $items = DPMT_Retrieve_List::get_list( $type );
 
-                // list all items
-                $items_per_page = -1;
-
-                if ( isset($_GET['tab']) ){
-
-                    switch ( $_GET['tab'] ){
-
-                        case 'post':
-                            $list = get_posts( array(
-                                'post_status' => 'publish',
-                                'posts_per_page' => $items_per_page
-                            ) );
-
-                            $type = 'post';
-                            $query_ID = 'ID';
-                            $query_title = 'post_title';
-                            
-                            break;
-
-
-                        case 'category':
-                            $list = get_categories();
-
-                            $type = 'category';
-                            $query_ID = 'term_id';
-                            $query_title = 'name';
-
-                            break;
-
-
-                        case 'tag':
-                            $list = get_tags();
-
-                            $type = 'tag';
-                            $query_ID = 'term_id';
-                            $query_title = 'name';
-
-                            break;
-
-
-                        case 'author':
-                            $list = get_users( array(
-                                'orderby' => 'display_name'
-                            ) );
-
-                            $type = 'author';
-                            $query_ID = 'ID';
-                            $query_title = 'display_name';
-
-                            break;
-                            break;
-
-
-                        case 'woo-product':
-                            $list = get_posts( array(
-                                'post_type' => 'product', 
-                                'posts_per_page' => $items_per_page,
-                                'orderby' => 'name',
-                                'order' => 'ASC'
-                            ) );
-
-                            $type = 'woo-product';
-                            $query_ID = 'ID';
-                            $query_title = 'post_title';
-
-                            break;
-
-
-                        case 'woo-category':
-                            $list = get_terms( array(
-                                'taxonomy' => 'product_cat'
-                            ) );
-
-                            $type = 'woo-category';
-                            $query_ID = 'term_id';
-                            $query_title = 'name';
-
-                            break;
-
-
-                        case 'woo-tag':
-                            $list = get_terms( array(
-                                'taxonomy' => 'product_tag'
-                            ) );
-
-                            $type = 'woo-tag';
-                            $query_ID = 'term_id';
-                            $query_title = 'name';
-
-                            break;
-
-
-                        default:
-
-                            $list = array();
-
-                            break;
-
-                    }
-
-                }else{
-
-                    $list = get_pages( array(
-                        'post_type' => 'page',
-                        'post_status' => 'publish', 
-                        'posts_per_page' => $items_per_page
-                    ) );
-
-
-                    if ( get_option('page_on_front') == 0 ){
-                        
-                        $frontpage = (object) [
-                            'ID' => 'front',
-                            'post_title' => 'Frontpage'
-                        ];
-                        array_unshift($list, $frontpage);
-                        
-                    }
-
-                    $type = 'page';
-                    $query_ID = 'ID';
-                    $query_title = 'post_title';
-
-                }
-
-                
-
-                if ( ! empty($list) ){
-                    foreach ( $list as $item ){
+                if ( ! empty($items['list']) ){
+                    foreach ( $items['list'] as $item ){
 
                         echo '                
                         <tr>
                             <td>';
-                                if ($item->{$query_ID} == 'front'){
+                                if ($item->{$items['query_ID']} == 'front'){
                                     echo '<i><b><a href="options-general.php?page='. $_GET['page'] .'&type='. $type .'&edit='. 
-                                    $item->{$query_ID} .'">'. $item->{$query_title} .'</a></b></i>
+                                    $item->{$items['query_ID']} .'">'. $item->{$items['query_title']} .'</a></b></i>
                                     <span class="dashicons dashicons-editor-help" data-tip="'. 
                                     esc_attr('Your homepage displays the latest posts, you\'ll need meta tags there as well.')
                                     .'"></span>';
                                 }else{
                                     echo '<a href="options-general.php?page='. $_GET['page'] .'&type='. $type .'&edit='. 
-                                    $item->{$query_ID} .'">'. $item->{$query_title} .'</a>';
+                                    $item->{$items['query_ID']} .'">'. $item->{$items['query_title']} .'</a>';
                                 }
                             echo '
                             </td>';
 
-                            $statuses = $taginfo->get_status( $type, $item->{$query_ID} );
+                            $statuses = $taginfo->get_status( $type, $item->{$items['query_ID']} );
                             foreach ($statuses as $group => $status){  
                                 echo '<td>'. $status .'</td>';
                             }
@@ -240,7 +121,7 @@ defined('ABSPATH') || die();
 
             <tfoot>
                 <tr>                    
-                    <?php 
+                <?php 
 
                     echo '
                     <th>
@@ -262,10 +143,13 @@ defined('ABSPATH') || die();
                     // nonces for security
                     wp_nonce_field( 'dpmt-bulk-actions' );
 
+
                     echo '</th>';
 
 
+                    // bulk actions
                     foreach ($dpmt_meta_tag_list as $group => $info){
+
                         echo '
                         <td>
                             <select name="bulk-'. esc_attr($info['var']) .'" id="bulk-action-selector-bottom">
@@ -280,9 +164,10 @@ defined('ABSPATH') || die();
                             </select>
                         </td>
                         ';
+
                     }
 
-                    ?>
+                ?>
                 </tr>
             </tfoot>
         </table>

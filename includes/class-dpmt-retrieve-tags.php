@@ -91,7 +91,7 @@ class DPMT_Retrieve_Tags {
             $found_auto = 0;
             $found_custom = 0;
 
-            if ( $group == 'Custom' && ! empty($tags) ){
+            if ( $group == 'Custom' && ! empty($tags['dpmt_custom']) ){
 
                 $found_custom = 1;
 
