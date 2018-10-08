@@ -15,11 +15,12 @@ defined('ABSPATH') || die();
     <a href="#" class="dpmt-toggle" data-toggle="1">Click here to learn how!</a></p>
     
     <div class="dpmt-hidden" data-toggle="1">
-        <p><code>Posts:</code> title will be the post title, description will be the excerpt (if set) or the first few sentences, image will be the featured image or the first attached image</p>
-        <p><code>Pages:</code> title will be the page title, description will be the first few sentences, image will be the featured image or the first attached image</p>
+        <p><code>Posts:</code> title will be the post title, description will be the excerpt (if set) or the first few sentences, image will be the featured image or the first attached image, video and audio is the same</p>
+        <p><code>Pages:</code> title will be the page title, description will be the first few sentences, image will be the featured image or the first attached image, video and audio is the same</p>
         <p><code>Categories, tags:</code> title will be the category/tag name, description will be the category/tag description</p>
         <p><code>Authors:</code> title will be the author name, description will be the biographical info</p>
         <p><code>Woo Product:</code> title will be the product name, description will be the short description, image will be the product image</p>
+        <p><b>Please note:</b> some meta tags cannot be filled automatically, e.g.: Twitter username</p>
     </div>
 
     <div class="nav-tab-wrapper">
@@ -69,7 +70,7 @@ defined('ABSPATH') || die();
                     
                     foreach ($dpmt_meta_tag_list as $item => $details){
                         echo '<th>'. $item .' 
-                        <span class="dashicons dashicons-editor-help" data-tip="'. esc_attr($details['info']) .'"></span></th>';
+                        <span class="dashicons dashicons-editor-help" data-tip="'. esc_attr( wp_strip_all_tags( $details['info'] ) ) .'"></span></th>';
                     }
 
                     ?>                

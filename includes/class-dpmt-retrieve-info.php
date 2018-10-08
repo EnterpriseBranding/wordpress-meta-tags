@@ -168,20 +168,38 @@ class DPMT_Retrieve_Info {
                 // video
                 $videos = $dom->getElementsByTagName('video');                
                 if( $videos->length != 0 ){
+
                     $source = $videos->item(0)->getElementsByTagName('source');
+
                     if ( $source->length != 0 ){
-                        $this->video = $source->item(0)->getAttribute('src');                         
-                    }                    
+
+                        $this->video = $source->item(0)->getAttribute('src');   
+
+                    }elseif( ! empty( $videos->item(0)->getAttribute('src') ) ){
+
+                        $this->video = $videos->item(0)->getAttribute('src');
+
+                    }                 
+
                 }
 
 
                 // audio
-                $audio = $dom->getElementsByTagName('audio');                
+                $audio = $dom->getElementsByTagName('audio');              
                 if( $audio->length != 0 ){
+                    
                     $source = $audio->item(0)->getElementsByTagName('source');
+
                     if ( $source->length != 0 ){
+
                         $this->audio = $source->item(0)->getAttribute('src');                         
-                    }                    
+
+                    }elseif( ! empty( $audio->item(0)->getAttribute('src') ) ){
+
+                        $this->audio = $audio->item(0)->getAttribute('src');
+
+                    }
+
                 }
 
 

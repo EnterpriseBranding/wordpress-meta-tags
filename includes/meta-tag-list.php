@@ -71,7 +71,7 @@ $dpmt_meta_tag_list = [
     
     'Twitter Cards' => [
         'var' => 'twitter',
-        'info' => 'Simply add a few lines of markup to your webpage, and users who Tweet links to your content will have a "Card" added to the Tweet that’s visible to their followers.',
+        'info' => 'Simply add a few lines of markup to your webpage, and users who Tweet links to your content will have a "Card" added to the Tweet that’s visible to their followers. Once you filled the meta tags, you can validate your cards <a href="https://cards-dev.twitter.com/validator" target="_blank">here</a>.',
         'attr' => 'name',
         'fields' => [
             'twitter:card' => [
@@ -80,7 +80,7 @@ $dpmt_meta_tag_list = [
                 'values' => ['summary', 'summary_large_image', 'player']
             ],
             'twitter:site' => [
-                'info' => 'The Twitter username of your website.',                
+                'info' => 'The Twitter username of your website. E.g.: @divpusherthemes',                
                 'variable' => 'dpmt_twitter_site'
             ],
             'twitter:title' => [
@@ -100,7 +100,7 @@ $dpmt_meta_tag_list = [
                 'variable' => 'dpmt_twitter_image_alt'
             ],
             'twitter:player' => [
-                'info' => 'HTTPS URL of player iframe.',                
+                'info' => 'HTTPS URL to iFrame player. This must be a HTTPS URL which does not generate active mixed content warnings in a web browser. The audio or video player must not require plugins such as Adobe Flash.',                
                 'variable' => 'dpmt_twitter_player'
             ],
             'twitter:player:width' => [
@@ -114,6 +114,10 @@ $dpmt_meta_tag_list = [
             'twitter:player:stream' => [
                 'info' => 'URL to raw video or audio stream.',                
                 'variable' => 'dpmt_twitter_player_stream'
+            ],
+            'twitter:player:stream:content_type' => [
+                'info' => 'The MIME type of video or audio stream, e.g.: <b>video/mp4</b> for *.mp4, <b>audio/mpeg</b> for *.mp3',                
+                'variable' => 'dpmt_twitter_player_stream_content_type'
             ]
         ]
     ],
