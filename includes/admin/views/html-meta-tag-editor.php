@@ -31,20 +31,20 @@ $iteminfo = new DPMT_Retrieve_Info($_GET['type'], $_GET['edit']);
 ?>
 <div class="wrap dpmt-editor">
     
-    <h1 class="wp-heading-inline">Meta Tag Editor / <?php 
+    <?php
+    echo '<h1 class="wp-heading-inline">' . __( 'Meta Tag Editor', 'dp-meta-tags' ) . ' / ';
     
         if ( $_GET['edit'] == 'front' ){
-            echo $iteminfo->title . ' (frontpage)';     
+            echo $iteminfo->title . ' (' . __( 'frontpage', 'dp-meta-tags' ) . ')';     
         }else{
             echo $iteminfo->title . ' (' . str_replace('-', ' ', $_GET['type']) . ')';     
         }
 
-    ?></h1>
-    <a href="#" class="page-title-action dpmt-set-all-auto">Set All to Autopilot</a>
-    <a href="#" class="page-title-action dpmt-clear-all">Clear All</a>
+    echo '</h1>
+    <a href="#" class="page-title-action dpmt-set-all-auto">' . __( 'Set All to Autopilot', 'dp-meta-tags' ) . '</a>
+    <a href="#" class="page-title-action dpmt-clear-all">' . __( 'Clear All', 'dp-meta-tags' ) . '</a>';
 
         
-    <?php 
 
     echo '<form method="POST" action="' . admin_url('admin-post.php') . '">';
 
@@ -138,13 +138,13 @@ $iteminfo = new DPMT_Retrieve_Info($_GET['type'], $_GET['edit']);
 
     }
 
+
+    echo '
+    <p class="submit">
+        <input type="submit" name="submit" id="submit" class="button button-primary" value="' . __( 'Save Changes', 'dp-meta-tags' ) . '"  />
+    </p>';
+
     ?>
-
-
-
-        <p class="submit">
-            <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes"  />
-        </p>
 
     </form>
 

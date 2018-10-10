@@ -39,7 +39,7 @@ None yet.
 
 == Changelog ==
 
-= 1.3.0 =
+= 2.0.0 =
 * Update: complete refactoring, switching to more maintainable OOP code
 * Update: brand new interface: now you can control all meta tags in one central table easily
 * Update: removed page title setting, because you can define it elsewhere natively

@@ -1,0 +1,368 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Meta Tags WordPress Plugin 2.0.0\n"
+"POT-Creation-Date: 2018-10-10 23:25+0100\n"
+"PO-Revision-Date: 2018-10-10 23:26+0100\n"
+"Last-Translator: \n"
+"Language-Team: DivPusher.com\n"
+"Language: english\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: __;_e;esc_html__;esc_attr__\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../includes/class-dpmt-meta-tags.php:76
+#, php-format
+msgid ""
+"Meta Tags plugin requires at least PHP version %1$s or greater and WordPress "
+"%2$s or greater!"
+msgstr ""
+
+#: ../includes/class-dpmt-meta-tags.php:82
+msgid "Click here to go back"
+msgstr ""
+
+#: ../includes/class-dpmt-retrieve-tags.php:122
+msgid "autopilot"
+msgstr ""
+
+#: ../includes/class-dpmt-retrieve-tags.php:126
+msgid "custom"
+msgstr ""
+
+#: ../includes/class-dpmt-retrieve-tags.php:130
+msgid "mixed"
+msgstr ""
+
+#: ../includes/meta-tag-list.php:10
+msgid "General tags"
+msgstr ""
+
+#: ../includes/meta-tag-list.php:12
+msgid "Basic HTML meta tags."
+msgstr ""
+
+#: ../includes/meta-tag-list.php:16
+msgid ""
+"This text will appear below your title in Google search results. Describe "
+"this page/post in 155 maximum characters. Note: Google will not consider "
+"this in its search ranking algorithm."
+msgstr ""
+
+#: ../includes/meta-tag-list.php:21
+msgid ""
+"Improper or spammy use most likely will hurt you with some search engines. "
+"Google will not consider this in its search ranking algorithm, so it's not "
+"really recommended."
+msgstr ""
+
+#: ../includes/meta-tag-list.php:29
+msgid "Open Graph"
+msgstr ""
+
+#: ../includes/meta-tag-list.php:31
+msgid ""
+"Open Graph has become very popular, so most social networks default to Open "
+"Graph if no other meta tags are present."
+msgstr ""
+
+#: ../includes/meta-tag-list.php:35
+msgid "The headline."
+msgstr ""
+
+#: ../includes/meta-tag-list.php:39
+msgid "A short summary about the content."
+msgstr ""
+
+#: ../includes/meta-tag-list.php:43
+msgid ""
+"Article, website or other. Here is a list of all available types: <a href="
+"\"http://ogp.me/#types\" target=\"_blank\">http://ogp.me/#types</a>"
+msgstr ""
+
+#: ../includes/meta-tag-list.php:47
+msgid "URL to your content's audio."
+msgstr ""
+
+#: ../includes/meta-tag-list.php:51
+msgid ""
+"URL to your content's image. It should be at least 600x315 pixels, but "
+"1200x630 or larger is preferred (up to 5MB). Stay close to a 1.91:1 aspect "
+"ratio to avoid cropping."
+msgstr ""
+
+#: ../includes/meta-tag-list.php:55 ../includes/meta-tag-list.php:98
+msgid "A text description of the image for visually impaired users."
+msgstr ""
+
+#: ../includes/meta-tag-list.php:59
+msgid ""
+"URL to your content's video. Videos need an og:image tag to be displayed in "
+"News Feed."
+msgstr ""
+
+#: ../includes/meta-tag-list.php:63
+msgid ""
+"The URL of your page. Use the canonical URL for this tag (the search engine "
+"friendly URL that you want the search engines to treat as authoritative)."
+msgstr ""
+
+#: ../includes/meta-tag-list.php:71
+msgid "Twitter Cards"
+msgstr ""
+
+#: ../includes/meta-tag-list.php:73
+msgid ""
+"Simply add a few lines of markup to your webpage, and users who Tweet links "
+"to your content will have a \"Card\" added to the Tweet that’s visible to "
+"their followers. Once you filled the meta tags, you can validate your cards "
+"<a href=\"https://cards-dev.twitter.com/validator\" target=\"_blank\">here</"
+"a>."
+msgstr ""
+
+#: ../includes/meta-tag-list.php:77
+msgid "The card type."
+msgstr ""
+
+#: ../includes/meta-tag-list.php:82
+msgid "The Twitter username of your website. E.g.: @divpusherthemes"
+msgstr ""
+
+#: ../includes/meta-tag-list.php:86
+msgid "Title of content (max 70 characters)"
+msgstr ""
+
+#: ../includes/meta-tag-list.php:90
+msgid "Description of content (maximum 200 characters)"
+msgstr ""
+
+#: ../includes/meta-tag-list.php:94
+msgid ""
+"URL of image to use in the card. Images must be less than 5MB in size. JPG, "
+"PNG, WEBP and GIF formats are supported."
+msgstr ""
+
+#: ../includes/meta-tag-list.php:102
+msgid ""
+"HTTPS URL to iFrame player. This must be a HTTPS URL which does not generate "
+"active mixed content warnings in a web browser. The audio or video player "
+"must not require plugins such as Adobe Flash."
+msgstr ""
+
+#: ../includes/meta-tag-list.php:106
+msgid "Width of iframe in pixels."
+msgstr ""
+
+#: ../includes/meta-tag-list.php:110
+msgid "Height of iframe in pixels."
+msgstr ""
+
+#: ../includes/meta-tag-list.php:114
+msgid "URL to raw video or audio stream."
+msgstr ""
+
+#: ../includes/meta-tag-list.php:118
+msgid ""
+"The MIME type of video or audio stream, e.g.: <b>video/mp4</b> for *.mp4, "
+"<b>audio/mpeg</b> for *.mp3"
+msgstr ""
+
+#: ../includes/meta-tag-list.php:128
+msgid "Insert your custom meta tags here."
+msgstr ""
+
+#: ../includes/meta-tag-list.php:130
+msgid "Custom meta tags"
+msgstr ""
+
+#: ../includes/admin/class-dpmt-admin.php:79
+msgid "Set up tags"
+msgstr ""
+
+#: ../includes/admin/class-dpmt-admin.php:94
+#: ../includes/admin/class-dpmt-admin.php:95
+msgid "Meta tags"
+msgstr ""
+
+#: ../includes/admin/class-dpmt-admin.php:138
+#, php-format
+msgid ""
+"Thank you for using our plugin. Visit <a href=\"%s\">Settings / Meta tags</"
+"a> to set up all the tags."
+msgstr ""
+
+#: ../includes/admin/class-dpmt-admin.php:156
+#, php-format
+msgid ""
+"New interface! Visit <a href=\"%s\">Settings / Meta tags</a> to edit all of "
+"them in one table! Don't worry, your old settings won't be lost!"
+msgstr ""
+
+#: ../includes/admin/class-dpmt-admin.php:176
+#, php-format
+msgid ""
+"Need some nice, free or premium theme? <a href=\"%s\" target=\"_blank\">Have "
+"a look around here!</a>"
+msgstr ""
+
+#: ../includes/admin/class-dpmt-admin.php:183
+msgid "Dismiss forever"
+msgstr ""
+
+#: ../includes/admin/class-dpmt-admin.php:193
+msgid ""
+"For some reason we couldn't migrate all of your previous meta tag settings. "
+"Sorry!"
+msgstr ""
+
+#: ../includes/admin/class-dpmt-admin.php:233
+#, php-format
+msgid ""
+"Found a bug? Please <a href=\"%s\" target=\"_blank\">report it here</a> and "
+"we will fix that as soon as we can!"
+msgstr ""
+
+#: ../includes/admin/class-dpmt-admin.php:238
+#, php-format
+msgid ""
+"If you like our <strong>%s</strong> please leave us a %s rating. Thank you "
+"in advance!"
+msgstr ""
+
+#: ../includes/admin/class-dpmt-admin.php:239
+msgid "Meta Tags plugin"
+msgstr ""
+
+#: ../includes/admin/class-dpmt-admin.php:260
+#: ../includes/admin/class-dpmt-admin.php:287
+msgid "You don't have permission to edit meta tags!"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-editor.php:35
+msgid "Meta Tag Editor"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-editor.php:38
+msgid "frontpage"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-editor.php:44
+msgid "Set All to Autopilot"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-editor.php:45
+msgid "Clear All"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-editor.php:144
+msgid "Save Changes"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:13
+msgid "Meta Tags"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:15
+msgid ""
+"Click on an item to edit its meta tags. You can also set all of them to "
+"<b>autopilot</b> mode. <b>Autopilot</b> means that the plugin will retrieve "
+"the informations from the page itself."
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:16
+msgid "Click here to learn how!"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:20
+msgid ""
+"<code>Posts:</code> title will be the post title, description will be the "
+"excerpt (if set) or the first few sentences, image will be the featured "
+"image or the first attached image, video and audio is the same"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:23
+msgid ""
+"<code>Pages:</code> title will be the page title, description will be the "
+"first few sentences, image will be the featured image or the first attached "
+"image, video and audio is the same"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:26
+msgid ""
+"<code>Categories, tags:</code> title will be the category/tag name, "
+"description will be the category/tag description"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:29
+msgid ""
+"<code>Authors:</code> title will be the author name, description will be the "
+"biographical info"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:32
+msgid ""
+"<code>Woo Product:</code> title will be the product name, description will "
+"be the short description, image will be the product image"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:35
+msgid ""
+"<b>Please note:</b> some meta tags cannot be filled automatically, e.g.: "
+"Twitter username"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:44
+msgid "Pages"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:45
+msgid "Posts"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:46
+msgid "Post Categories"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:47
+msgid "Post Tags"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:48
+msgid "Authors"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:49
+msgid "Woo Products"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:50
+msgid "Woo Categories"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:51
+msgid "Woo Tags"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:111
+msgid "Frontpage"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:143
+msgid "Apply Bulk Actions"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:171
+msgid "Bulk Actions"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:174
+msgid "Set all to autopilot"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:178
+msgid "Delete all"
+msgstr ""

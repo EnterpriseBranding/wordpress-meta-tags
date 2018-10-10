@@ -119,15 +119,15 @@ class DPMT_Retrieve_Tags {
 
             }elseif( $found_auto == 1 && $found_custom == 0 ){
 
-                $statuses[$group] = 'autopilot';
+                $statuses[$group] = __( 'autopilot', 'dp-meta-tags' );
 
             }elseif( $found_auto == 0 && $found_custom == 1 ){
 
-                $statuses[$group] = 'custom';
+                $statuses[$group] = __( 'custom', 'dp-meta-tags' );
 
             }elseif( $found_auto == 1 && $found_custom == 1 ){
 
-                $statuses[$group] = 'mixed';
+                $statuses[$group] = __( 'mixed', 'dp-meta-tags' );
 
             }
             

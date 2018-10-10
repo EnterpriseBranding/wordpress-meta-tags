@@ -12,6 +12,7 @@ class DPMT_Admin {
         
         register_activation_hook( DPMT_PLUGIN_FILE, array( $this, 'on_activation' ) );
         add_action( 'upgrader_process_complete', array( $this, 'on_update' ) );
+        add_action( 'init', array( $this, 'load_textdomain' ) );
         add_action( 'admin_init', array( $this, 'set_notices' ) );        
         add_action( 'admin_init', array( $this, 'check_version' ) );        
         add_filter( 'plugin_action_links_' . DPMT_PLUGIN_FILE, array( $this, 'add_action_link' ) );
@@ -38,6 +39,15 @@ class DPMT_Admin {
     public function on_update(){
 
         set_transient( 'dmpt_update_notice', 1 );
+
+    }
+
+
+
+    // load translated text for the current language
+    public function load_textdomain(){
+
+        load_plugin_textdomain( 'dp-meta-tags', false, DPMT_PLUGIN_DIR .'/languages' );
 
     }
 
@@ -132,9 +142,15 @@ class DPMT_Admin {
             // on plugin activation
             if( get_transient( 'dmpt_activation_notice' ) ){
 
-                echo '<div class="notice notice-info is-dismissible"><p>
-                Thank you for using our plugin. Visit <b>Settings / Meta tags</b> to set up all the tags.
-                </p></div>';
+                echo '<div class="notice notice-info is-dismissible"><p>';
+                printf( 
+                    __( 
+                        'Thank you for using our plugin. Visit <a href="%s">Settings / Meta tags</a> to set up all the tags.', 
+                        'dp-meta-tags'
+                    ),
+                    admin_url( 'options-general.php?page=dpmt-editor' ) 
+                );
+                echo '</p></div>';
                 
                 delete_transient( 'dmpt_activation_notice' );
 
@@ -144,10 +160,15 @@ class DPMT_Admin {
             // on plugin update
             if( get_transient( 'dmpt_update_notice' ) ){
 
-                echo '<div class="notice notice-info is-dismissible"><p>
-                New interface! Visit <a href="'. admin_url( 'options-general.php?page=dpmt-editor' ) .'">Settings / Meta tags</a> to edit all of them in one table! Don\'t worry, 
-                your old settings won\'t be lost!
-                </p></div>';
+                echo '<div class="notice notice-info is-dismissible"><p>';
+                printf( 
+                    __( 
+                        'New interface! Visit <a href="%s">Settings / Meta tags</a> to edit all of them in one table! Don\'t worry, your old settings won\'t be lost!', 
+                        'dp-meta-tags'
+                    ),
+                    admin_url( 'options-general.php?page=dpmt-editor' ) 
+                );
+                echo '</p></div>';
                 
                 delete_transient( 'dmpt_update_notice' );
 
@@ -159,10 +180,18 @@ class DPMT_Admin {
             $user_id = get_current_user_id();
             if( $screen == 'themes.php' && ! get_user_meta( $user_id, 'dpmt_ad_dismissed' ) ){
 
-                echo '<div class="notice notice-info"><p>
-                Need some nice, free or premium theme? <a href="https://divpusher.com" target="_blank">Have a look around here!</a>
-                <span class="dpmt-dismiss-forever"><a href="?dpmt_ad_dismissed=1"><i class="dashicons dashicons-dismiss"></i> Dismiss forever</span></a>
-                </p></div>';
+                echo '<div class="notice notice-info"><p>';
+                printf( 
+                    __( 
+                        'Need some nice, free or premium theme? <a href="%s" target="_blank">Have a look around here!</a>', 
+                        'dp-meta-tags'
+                    ),
+                    esc_url( 'https://divpusher.com' ) 
+                );
+                
+                echo '<span class="dpmt-dismiss-forever"><a href="?dpmt_ad_dismissed=1"><i class="dashicons dashicons-dismiss"></i> ';
+                _e( 'Dismiss forever', 'dp-meta-tags' );
+                echo '</span></a></p></div>';
 
             }
 
@@ -170,9 +199,9 @@ class DPMT_Admin {
             // if migration failed
             if( get_transient( 'dmpt_migration_failed_notice' ) ){
 
-                echo '<div class="notice notice-error is-dismissible"><p>
-                For some reason we couldn\'t migrate all of your previous meta tag settings. Sorry!
-                </p></div>';
+                echo '<div class="notice notice-error is-dismissible"><p>';
+                _e( 'For some reason we couldn\'t migrate all of your previous meta tag settings. Sorry!', 'dp-meta-tags' );
+                echo '</p></div>';
                 
                 delete_transient( 'dmpt_migration_failed_notice' );
 
@@ -209,12 +238,18 @@ class DPMT_Admin {
     public function change_footer_text($footer_text){
 
         if( !empty($_GET['page']) && $_GET['page'] == 'dpmt-editor' ){
+
             $footer_text = sprintf(
-                __( 'Found a bug? Please <a href="https://divpusher.com/contact" target="_blank">report it here</a> and we will fix that as soon as we can!<br />
-                    If you like our %1$s please leave us a %2$s rating. Thank you in advance!', 'dp-meta-tags' ), 
-                sprintf( '<strong>%s</strong>', esc_html__( 'Meta Tags plugin', 'dp-meta-tags' ) ), 
+                __( 'Found a bug? Please <a href="%s" target="_blank">report it here</a> and we will fix that as soon as we can!', 'dp-meta-tags' ),
+                esc_url( 'https://divpusher.com/contact' )
+            ) . '<br />';
+            
+            $footer_text .= sprintf(
+                __( 'If you like our <strong>%s</strong> please leave us a %s rating. Thank you in advance!', 'dp-meta-tags' ),
+                esc_html__( 'Meta Tags plugin', 'dp-meta-tags' ),
                 '<a href="https://wordpress.org/support/plugin/meta-tags/reviews?rate=5#new-post" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
             );
+
         }
         
         return $footer_text;
@@ -232,7 +267,7 @@ class DPMT_Admin {
         
         // check user capabilities
         if ( ! current_user_can('edit_others_pages') ){
-            wp_die( 'You don\'t have permission to edit meta tags!' );
+            wp_die( esc_html__( 'You don\'t have permission to edit meta tags!', 'dp-meta-tags' ) );
         }
 
 
@@ -259,7 +294,7 @@ class DPMT_Admin {
         
         // check user capabilities
         if ( ! current_user_can('edit_others_pages') ){
-            wp_die( 'You don\'t have permission to edit meta tags!' );
+            wp_die( esc_html__( 'You don\'t have permission to edit meta tags!', 'dp-meta-tags' ) );
         }
 
 

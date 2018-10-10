@@ -72,14 +72,14 @@ final class DPMT_Meta_Tags {
                         
                 wp_die(
                     sprintf(
-                        esc_attr__(
+                        esc_html__(
                             'Meta Tags plugin requires at least PHP version %1$s or greater and WordPress %2$s or greater!', 
                             'dp-meta-tags'
                         ),
                         self::DPMT_REQUIRED_PHP, 
                         self::DPMT_REQUIRED_WP
                     ) . 
-                    '<br /><br /><a href="plugins.php" class="button">'. esc_attr__('Click here to go back', 'dp-meta-tags') . '</a>'
+                    '<br /><br /><a href="plugins.php" class="button">'. esc_html__('Click here to go back', 'dp-meta-tags') . '</a>'
                 );
 
             }

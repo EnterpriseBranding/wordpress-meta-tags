@@ -1,6 +1,6 @@
 <?php
-/*
- * Displays the meta tags in a table.
+/**
+ * Displays all meta tags in a table.
  */
 
 defined('ABSPATH') || die();
@@ -8,33 +8,47 @@ defined('ABSPATH') || die();
 ?>
 
 <div class="wrap dpmt-table">
-    <h1>Meta Tags</h1>
-
-    <p>Click on an item to edit its meta tags. You can also set all of them to <b>autopilot</b> mode.
-    <b>Autopilot</b> means that the plugin will retrieve the informations from the page itself.
-    <a href="#" class="dpmt-toggle" data-toggle="1">Click here to learn how!</a></p>
+    <?php
     
-    <div class="dpmt-hidden" data-toggle="1">
-        <p><code>Posts:</code> title will be the post title, description will be the excerpt (if set) or the first few sentences, image will be the featured image or the first attached image, video and audio is the same</p>
-        <p><code>Pages:</code> title will be the page title, description will be the first few sentences, image will be the featured image or the first attached image, video and audio is the same</p>
-        <p><code>Categories, tags:</code> title will be the category/tag name, description will be the category/tag description</p>
-        <p><code>Authors:</code> title will be the author name, description will be the biographical info</p>
-        <p><code>Woo Product:</code> title will be the product name, description will be the short description, image will be the product image</p>
-        <p><b>Please note:</b> some meta tags cannot be filled automatically, e.g.: Twitter username</p>
+    echo '<h1>'. __( 'Meta Tags', 'dp-meta-tags' ) . '</h1>';
+
+    echo '<p>' . __( 'Click on an item to edit its meta tags. You can also set all of them to <b>autopilot</b> mode. <b>Autopilot</b> means that the plugin will retrieve the informations from the page itself.', 'dp-meta-tags' ) .    
+    '<a href="#" class="dpmt-toggle" data-toggle="1">' . __( 'Click here to learn how!', 'dp-meta-tags' ) . '</a></p>';
+    
+    echo '<div class="dpmt-hidden" data-toggle="1">
+
+        <p>' . __( '<code>Posts:</code> title will be the post title, description will be the excerpt (if set) or the first few sentences, image will be the featured image or the first attached image, video and audio is the same', 'dp-meta-tags' ) . 
+        '</p>
+
+        <p>' . __( '<code>Pages:</code> title will be the page title, description will be the first few sentences, image will be the featured image or the first attached image, video and audio is the same', 'dp-meta-tags' ) . 
+        '</p>
+
+        <p>' . __( '<code>Categories, tags:</code> title will be the category/tag name, description will be the category/tag description', 'dp-meta-tags' ) . 
+        '</p>
+
+        <p>' . __( '<code>Authors:</code> title will be the author name, description will be the biographical info', 'dp-meta-tags' ) . 
+        '</p>
+
+        <p>' . __( '<code>Woo Product:</code> title will be the product name, description will be the short description, image will be the product image', 'dp-meta-tags' ) . 
+        '</p>
+
+        <p>' . __( '<b>Please note:</b> some meta tags cannot be filled automatically, e.g.: Twitter username', 'dp-meta-tags' ) . 
+        '</p>
+
     </div>
 
-    <div class="nav-tab-wrapper">
-    <?php
+    <div class="nav-tab-wrapper">';
+
 
         $possible_types = [
-            'page' => 'Pages',
-            'post' => 'Posts',
-            'category' => 'Post Categories',
-            'tag' => 'Post Tags',
-            'author' => 'Authors',
-            'woo-product' => 'Woo Products',
-            'woo-category' => 'Woo Categories',
-            'woo-tag' => 'Woo Tags',
+            'page' => esc_html__( 'Pages', 'dp-meta-tags' ),
+            'post' => esc_html__( 'Posts', 'dp-meta-tags' ),
+            'category' => esc_html__( 'Post Categories', 'dp-meta-tags' ),
+            'tag' => esc_html__( 'Post Tags', 'dp-meta-tags' ),
+            'author' => esc_html__( 'Authors', 'dp-meta-tags' ),
+            'woo-product' => esc_html__( 'Woo Products', 'dp-meta-tags' ),
+            'woo-category' => esc_html__( 'Woo Categories', 'dp-meta-tags' ),
+            'woo-tag' => esc_html__( 'Woo Tags', 'dp-meta-tags' ),
         ];
 
         foreach ( $possible_types as $key => $value ) {
@@ -94,7 +108,7 @@ defined('ABSPATH') || die();
                             <td>';
                                 if ($item->{$items['query_ID']} == 'front'){
                                     echo '<i><b><a href="options-general.php?page='. $_GET['page'] .'&type='. $type .'&edit='. 
-                                    $item->{$items['query_ID']} .'">'. $item->{$items['query_title']} .'</a></b></i>
+                                    $item->{$items['query_ID']} .'">'. esc_html__( 'Frontpage', 'dp-meta-tags' ) .'</a></b></i>
                                     <span class="dashicons dashicons-editor-help" data-tip="'. 
                                     esc_attr('Your homepage displays the latest posts, you\'ll need meta tags there as well.')
                                     .'"></span>';
@@ -126,7 +140,7 @@ defined('ABSPATH') || die();
 
                     echo '
                     <th>
-                        <input type="submit" id="doaction" class="button action" value="Apply Bulk Actions"  />
+                        <input type="submit" id="doaction" class="button action" value="' . __( 'Apply Bulk Actions', 'dp-meta-tags' ). '"  />
                         <input type="hidden" name="dpmt_type" value="';
                         if ( ! empty($_GET['tab']) ){
                             echo $_GET['tab'];
@@ -154,14 +168,14 @@ defined('ABSPATH') || die();
                         echo '
                         <td>
                             <select name="bulk-'. esc_attr($info['var']) .'" id="bulk-action-selector-bottom">
-                                <option value="-1">Bulk Actions</option>';
+                                <option value="-1">' . __( 'Bulk Actions', 'dp-meta-tags' ) . '</option>';
 
                         if ( $group != 'Custom' ){
-                            echo '<option value="autopilot">Set all to autopilot</option>';
+                            echo '<option value="autopilot">' . __( 'Set all to autopilot', 'dp-meta-tags' ) . '</option>';
                         }
                         
                         echo '                                
-                                <option value="delete">Delete all</option>
+                                <option value="delete">' . __( 'Delete all', 'dp-meta-tags' ) . '</option>
                             </select>
                         </td>
                         ';

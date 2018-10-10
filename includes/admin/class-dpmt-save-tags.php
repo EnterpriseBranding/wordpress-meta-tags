@@ -19,6 +19,15 @@ class DPMT_Save_Tags {
 
         $type = $data['dpmt_id'] == 'front' ? 'frontpage' : $data['dpmt_type'];
 
+        $url_fields = [ 
+            'dpmt_og_audio',
+            'dpmt_og_image',
+            'dpmt_og_video',
+            'dpmt_og_url',
+            'dpmt_twitter_image',
+            'dpmt_twitter_player_stream'
+        ];
+
 
         // get list of all possible meta tags and walk them
         foreach ( $list_of_meta_tags as $group => $item ){
@@ -44,7 +53,15 @@ class DPMT_Save_Tags {
 
                 }else{
 
-                    $value = sanitize_text_field( $data[$field['variable']] );
+                    if ( in_array($field['variable'], $url_fields) ){
+
+                        $value = esc_url( $data[$field['variable']] );
+
+                    }else{
+
+                        $value = sanitize_text_field( $data[$field['variable']] );
+
+                    }
 
                 }
 
