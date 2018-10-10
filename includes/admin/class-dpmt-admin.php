@@ -13,6 +13,7 @@ class DPMT_Admin {
         register_activation_hook( DPMT_PLUGIN_FILE, array( $this, 'on_activation' ) );
         add_action( 'upgrader_process_complete', array( $this, 'on_update' ) );
         add_action( 'admin_init', array( $this, 'set_notices' ) );        
+        add_action( 'admin_init', array( $this, 'check_version' ) );        
         add_filter( 'plugin_action_links_' . DPMT_PLUGIN_FILE, array( $this, 'add_action_link' ) );
         add_action( 'admin_menu', array( $this, 'add_admin_pages') );
         add_action( 'admin_enqueue_scripts', array( $this, 'add_css_js' ) );
@@ -37,6 +38,35 @@ class DPMT_Admin {
     public function on_update(){
 
         set_transient( 'dmpt_update_notice', 1 );
+
+    }
+
+
+
+    // check plugin version to see if we have to run any migration from previous version
+    public function check_version(){
+
+        // run specific tasks
+        if ( empty( get_option( 'dpmt_plugin_version' ) ) ){
+                       
+            include_once 'class-dpmt-migration.php';
+            $migrate = new DPMT_Migration();
+
+            // display notice if couldn't migrate data
+            if ( ! $migrate ){
+                set_transient( 'dmpt_migration_failed_notice', 1 );
+            }
+
+        }
+
+
+        // update version number
+        $plugin_info = get_plugin_data( DPMT_PLUGIN_FULL_PATH );
+        if ( $plugin_info['Version'] != get_option( 'dpmt_plugin_version' )  ){
+            
+            update_option( 'dpmt_plugin_version', $plugin_info['Version'] );
+
+        }
 
     }
 
@@ -115,7 +145,7 @@ class DPMT_Admin {
             if( get_transient( 'dmpt_update_notice' ) ){
 
                 echo '<div class="notice notice-info is-dismissible"><p>
-                New interface! Visit <b>Settings / Meta tags</b> to edit all of them in one table! Don\'t worry, 
+                New interface! Visit <a href="'. admin_url( 'options-general.php?page=dpmt-editor' ) .'">Settings / Meta tags</a> to edit all of them in one table! Don\'t worry, 
                 your old settings won\'t be lost!
                 </p></div>';
                 
@@ -135,6 +165,19 @@ class DPMT_Admin {
                 </p></div>';
 
             }
+
+
+            // if migration failed
+            if( get_transient( 'dmpt_migration_failed_notice' ) ){
+
+                echo '<div class="notice notice-error is-dismissible"><p>
+                For some reason we couldn\'t migrate all of your previous meta tag settings. Sorry!
+                </p></div>';
+                
+                delete_transient( 'dmpt_migration_failed_notice' );
+
+            }    
+            
 
         });
 

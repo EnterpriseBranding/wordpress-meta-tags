@@ -1,15 +1,19 @@
 <?php
 
+/*
+ * Clear plugin data from post meta and options table.
+ */ 
+
 defined('WP_UNINSTALL_PLUGIN') || die();
 
 
-// clear plugin data from post meta and options table
 global $wpdb;
+
 $tables_to_clean = [
-    $wpdb->prefix.'postmeta',
-    $wpdb->prefix.'termmeta',
-    $wpdb->prefix.'usermeta',
-    $wpdb->prefix.'options'
+    $wpdb->prefix.'postmeta' => 'meta_key',
+    $wpdb->prefix.'termmeta' => 'meta_key',
+    $wpdb->prefix.'usermeta' => 'meta_key',
+    $wpdb->prefix.'options' => 'option_name'
 ];
 
 require_once dirname(__FILE__) . '/includes/meta-tag-list.php';
@@ -20,17 +24,10 @@ if (!empty($dpmt_meta_tag_list) && is_array($dpmt_meta_tag_list)){
 
         foreach( $v['fields'] as $field ){
 
-            foreach ( $tables_to_clean as $table ){
+            foreach ( $tables_to_clean as $table => $key ){
 
-                if ( $table == $wpdb->prefix.'options' ){
-
-                    $wpdb->delete( $table, array('option_name' => 'dpmt_frontpage_' . $field['variable']) );
-
-                }else{
-
-                    $wpdb->delete( $table, array('meta_key' => $field['variable']) );
-
-                }
+                $wpdb->delete( $table, array( $key => $field['variable'] ) );
+                $wpdb->delete( $table, array( $key => 'dpmt_frontpage_' . $field['variable'] ) );
 
             }
 
@@ -39,3 +36,5 @@ if (!empty($dpmt_meta_tag_list) && is_array($dpmt_meta_tag_list)){
     }
 
 }
+
+delete_option( 'dpmt_plugin_version' );

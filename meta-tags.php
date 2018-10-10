@@ -3,12 +3,12 @@
 /**
  * Plugin Name: Meta Tags
  * Plugin URI: https://wordpress.org/plugins/meta-tags/
- * Description: A super simple plugin to edit meta tags in all your pages, posts and WooCommerce product pages.
+ * Description: A super simple plugin to edit meta tags in all your pages, posts, categories, tags and WooCommerce pages.
  * Author: DivPusher - WordPress Theme Club
  * Author URI: https://divpusher.com/
  * Version: 1.3.0
  * Text Domain: meta-tags
- * Tags: meta tags, edit meta tags, facebook open graph, twitter cards, schema.org
+ * Tags: meta tags, edit meta tags, facebook open graph, twitter cards, seo
  * License: GPLv3
  * License URI: http://www.gnu.org/licenses/gpl-3.0
  */
@@ -19,10 +19,16 @@
 defined('ABSPATH') || die();
 
 
-
 // define plugin file
 if( !defined('DPMT_PLUGIN_FILE') ){
     define( 'DPMT_PLUGIN_FILE', plugin_basename( __FILE__ ) );
+}
+
+
+
+// define full path to plugin file
+if( !defined('DPMT_PLUGIN_FULL_PATH') ){
+    define( 'DPMT_PLUGIN_FULL_PATH',  __FILE__ );
 }
 
 
