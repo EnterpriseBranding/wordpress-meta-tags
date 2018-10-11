@@ -1,8 +1,10 @@
 <?php
-
-/*
- * Clear plugin data from post meta and options table.
+/**
+ * Removes all plugin data from postmeta and options tables on uninstall.
+ * 
+ * @since 2.0.0
  */ 
+
 
 defined('WP_UNINSTALL_PLUGIN') || die();
 

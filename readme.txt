@@ -1,11 +1,12 @@
 === Meta Tags ===
 Author: divpusher
+Author URI: https://divpusher.com
 Contributors: divpusher
 Donate link: https://divpusher.com/
 Tags: meta tags, seo, edit meta tags, search engine optimization, facebook open graph, twitter cards, schema.org
 Requires at least: 4.7.0
 Tested up to: 4.9.8
-Stable tag: trunk
+Stable tag: 2.0.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0
 
@@ -30,6 +31,7 @@ After activating the plugin visit Settings/Meta tags. There you can set up meta 
 == Screenshots ==
 
 1. The meta tag editor table in Settings / Meta tags
+2. The meta tag editor form
 
 
 == Frequently Asked Questions ==

@@ -1,15 +1,21 @@
 <?php
-
 /**
- * Move all filled meta tag values from older plugin.
+ * Moves all filled meta tag values from older plugin.
+ * 
+ * @since 2.0.0
  */
+
 
 defined('ABSPATH') || die();
 
 
 class DPMT_Migration{
     
-
+    /**
+     * Previous plugin's keys and their equivalent new keys.
+     * 
+     * @var array
+     */
     private $old_and_new_keys = [
         'dp-metatags-general-description' => 'dpmt_general_description', 
         'dp-metatags-general-keywords' => 'dpmt_general_keywords',
@@ -27,6 +33,11 @@ class DPMT_Migration{
         'dp-metatags-custom' => 'dpmt_custom'
     ];
 
+    /**
+     * Database tables and the fields to update.
+     * 
+     * @var array
+     */
     private $tables_to_update = [
         'postmeta' => 'meta_key',
         'options' => 'option_name'
@@ -34,12 +45,20 @@ class DPMT_Migration{
 
 
 
+    /*
+     * Starts the migration.
+     */
     public function __construct(){
         $this->run();
     }
 
 
 
+    /**
+     * Removes deprecated records and replaces old keys with new ones.
+     * 
+     * @return bool 
+     */
     public function run(){
 
         global $wpdb;

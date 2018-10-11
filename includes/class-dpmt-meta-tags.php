@@ -1,4 +1,9 @@
 <?php
+/**
+ * Checks environment and starts the plugin.
+ * 
+ * @since 2.0.0
+ */
 
 
 defined('ABSPATH') || die();
@@ -6,19 +11,34 @@ defined('ABSPATH') || die();
 
 final class DPMT_Meta_Tags {
 
-    
+    /**
+     * Minimum PHP version.
+     *
+     * @var float
+     */
     const DPMT_REQUIRED_PHP = '5.6.3';
 
+    /**
+     * Minimum WordPress version.
+     *
+     * @var float
+     */
     const DPMT_REQUIRED_WP = '4.7';
     
-
-    /*
-     * @var The one and only instance of the plugin (singleton)
+    /**
+     * The one and only instance of the plugin (singleton).
+     *
+     * @var DPMT_Meta_Tags
      */
     private static $instance;
 
 
 
+    /**
+     * Returns the instance of the plugin.
+     *
+     * @return DPMT_Meta_Tags
+     */
     public static function get_instance(){
     
         if ( is_null( self::$instance ) ){
@@ -31,6 +51,9 @@ final class DPMT_Meta_Tags {
 
 
 
+    /**
+     * Checks the system and starts the plugin.
+     */
     private function __construct(){
 
         if ( ! $this->check_system() ){
@@ -44,7 +67,9 @@ final class DPMT_Meta_Tags {
 
 
 
-    // prevent instance from being cloned, serialized and unserialized (which would create a second instance of it)
+    /**
+     * Prevent instance from being cloned, serialized and unserialized (which would create a second instance of it).
+     */
     private function __clone(){}
 
     private function __sleep(){}
@@ -54,9 +79,11 @@ final class DPMT_Meta_Tags {
 
 
     /**
-     * Stop and deactivate plugin if current environment is not ideal.
-     * This check should always run first, because what if the owner changes 
+     * Stops and deactivates plugin if current environment is not ideal.
+     * This check should always run first, because, for example; what if the owner changes 
      * PHP version in CPanel and a visitor loads the site first?
+     *
+     * @return bool
      */ 
     private function check_system(){
 
@@ -95,6 +122,9 @@ final class DPMT_Meta_Tags {
 
 
 
+    /**
+     * Starts the plugin's backend or frontend section.
+     */
     private function run(){
 
         if ( is_admin() ){

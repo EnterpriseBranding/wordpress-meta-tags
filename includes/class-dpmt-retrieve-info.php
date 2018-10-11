@@ -1,38 +1,94 @@
 <?php
-
 /**
- * Get all required item information
+ * Loads all information of a WordPress item from database.
+ * 
+ * @since 2.0.0
  */
+
 
 defined('ABSPATH') || die();
 
 
 class DPMT_Retrieve_Info {
 
-    
+    /**
+     * WP item types which this plugin can handle.
+     * 
+     * @var array
+     */
     private $allowed_types = [ 'page', 'post', 'category', 'tag', 'author', 'woo-product', 'woo-category', 'woo-tag' ];
 
+    /**
+     * WP item type.
+     * 
+     * @var string
+     */
     private $type;
 
+    /**
+     * WP item ID.
+     * 
+     * @var string
+     */
     private $id;
 
-
+    /**
+     * WP item title.
+     * 
+     * @var string
+     */
     public $title;
 
+    /**
+     * WP item URL.
+     * 
+     * @var string
+     */
     public $url;
     
+    /**
+     * WP item description.
+     * 
+     * @var string
+     */
     public $description;
 
+    /**
+     * WP item image URL.
+     * 
+     * @var string
+     */
     public $image;
     
+    /**
+     * WP item image alternate text.
+     * 
+     * @var string
+     */
     public $image_alt;
 
+    /**
+     * WP item audio URL.
+     * 
+     * @var string
+     */
     public $audio;
 
+    /**
+     * WP item video URL.
+     * 
+     * @var string
+     */
     public $video;
 
 
-
+    
+    /**
+     * Checks parameters and starts the loading process.
+     * 
+     * @param string $type WP item type, e.g.: page, post, etc.
+     * @param string $id WP item ID or frontpage marker.
+     */
     public function __construct( $type, $id ){
         
         $this->type = ($id == 'front' ? 'frontpage' : $type);
@@ -44,6 +100,9 @@ class DPMT_Retrieve_Info {
 
 
 
+    /**
+     * Loads all information it can find based on item content.
+     */
     private function init(){
 
         switch ( $this->type ) {

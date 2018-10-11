@@ -1,13 +1,18 @@
 <?php
-
+/**
+ * Starts backend processes.
+ * 
+ * @since 2.0.0
+ */
 
 defined('ABSPATH') || die();
 
 
-class DPMT_Admin {
-    
+class DPMT_Admin {    
 
-    // add actions and filters
+    /**
+     * Adds actions and filters.
+     */
     public function __construct(){
         
         register_activation_hook( DPMT_PLUGIN_FILE, array( $this, 'on_activation' ) );
@@ -26,7 +31,9 @@ class DPMT_Admin {
 
 
 
-    // things to do when plugin is activated
+    /**
+     * Things to do when plugin is activated.
+     */
     public function on_activation(){
 
         set_transient( 'dmpt_activation_notice', 1 );
@@ -35,7 +42,9 @@ class DPMT_Admin {
 
 
 
-    // things to do when plugin is update
+    /**
+     * Things to do when plugin is updated.
+     */
     public function on_update(){
 
         set_transient( 'dmpt_update_notice', 1 );
@@ -44,7 +53,9 @@ class DPMT_Admin {
 
 
 
-    // load translated text for the current language
+    /**
+     * Loads translated text for the current language.
+     */
     public function load_textdomain(){
 
         load_plugin_textdomain( 'dp-meta-tags', false, DPMT_PLUGIN_DIR .'/languages' );
@@ -53,7 +64,9 @@ class DPMT_Admin {
 
 
 
-    // check plugin version to see if we have to run any migration from previous version
+    /**
+     * Checks plugin version to see if we have to run any migration from previous version.
+     */
     public function check_version(){
 
         // run specific tasks
@@ -82,7 +95,12 @@ class DPMT_Admin {
 
 
     
-    // add action link below the plugin on plugins page
+    /**
+     * Adds action link below the plugin on plugins page.
+     *
+     * @param array $links Required for the action.
+     * @return array Plugin action link list.
+     */
     public function add_action_link( $links ) {
 
         $new = '<a href="' . admin_url( 'options-general.php?page=dpmt-editor' ) . '">' . 
@@ -96,7 +114,9 @@ class DPMT_Admin {
 
 
 
-    // add plugin pages to the admin menu
+    /**
+     * Adds plugin pages to the admin menu.
+     */
     public function add_admin_pages(){
 
         add_submenu_page(
@@ -112,7 +132,9 @@ class DPMT_Admin {
 
 
 
-    // display meta tag table page
+    /**
+     * Displays the meta tag table page.
+     */
     public function meta_tag_pages(){
         
         include_once dirname( plugin_dir_path( __FILE__ ) ) . '/meta-tag-list.php';
@@ -134,7 +156,9 @@ class DPMT_Admin {
 
 
 
-    // add notices
+    /**
+     * Handles WP notices.
+     */
     public function set_notices(){
         
         add_action( 'admin_notices', function() {
@@ -224,8 +248,10 @@ class DPMT_Admin {
 
 
 
-    // enqueue css and js files for admin
-    public function add_css_js($hook){
+    /**
+     * Enqueues CSS and JS files for admin.
+     */
+    public function add_css_js(){
 
         wp_enqueue_style( 'dpmt_admin_css', plugins_url('assets/css/admin.css', DPMT_PLUGIN_FILE) );
         wp_enqueue_script( 'dpmt_admin_js', plugins_url('assets/js/admin.js', DPMT_PLUGIN_FILE), array('jquery') );
@@ -234,8 +260,13 @@ class DPMT_Admin {
 
 
 
-    // change footer text
-    public function change_footer_text($footer_text){
+    /**
+     * Changes footer text on plugin pages.
+     *
+     * @param string $footer_text
+     * @return string The new footer text.
+     */
+    public function change_footer_text( $footer_text ){
 
         if( !empty($_GET['page']) && $_GET['page'] == 'dpmt-editor' ){
 
@@ -258,7 +289,9 @@ class DPMT_Admin {
 
 
 
-    // save meta tags
+    /**
+     * Handles meta tag saving after form submission.
+     */
     public function save_meta_tags(){
 
         // check nonce
@@ -285,7 +318,9 @@ class DPMT_Admin {
 
 
 
-    // table bulk actions
+    /**
+     * Handles meta tag table bulk actions.
+     */
     public function table_bulk_actions(){
 
         // check nonce

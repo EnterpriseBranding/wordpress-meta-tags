@@ -1,7 +1,10 @@
 <?php
-/*
+/**
  * Displays the meta tag editor form.
+ * 
+ * @since 2.0.0
  */
+ 
 
 defined('ABSPATH') || die();
 
@@ -122,7 +125,7 @@ $iteminfo = new DPMT_Retrieve_Info($_GET['type'], $_GET['edit']);
 
                             echo '
                             <input name="'. esc_attr($tag['variable']) .'" type="text" id="'. esc_attr($tag['variable']) .'" 
-                            value="'. esc_attr($meta_tags[$group][$tag['variable']]) .'" class="regular-text" />';
+                            value="'. esc_attr( stripslashes( $meta_tags[$group][$tag['variable']] ) ) .'" class="regular-text" />';
 
                         }
 

@@ -1,7 +1,10 @@
 <?php
 /**
  * List of meta tags which can be edited with this plugin.
- */
+ * 
+ * @since 2.0.0
+ */ 
+
 
 defined('ABSPATH') || die();
 

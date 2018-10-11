@@ -1,6 +1,8 @@
 <?php
 /**
  * Displays all meta tags in a table.
+ * 
+ * @since 2.0.0
  */
 
 defined('ABSPATH') || die();
@@ -39,7 +41,7 @@ defined('ABSPATH') || die();
 
     <div class="nav-tab-wrapper">';
 
-
+        // display tabbed navigation    
         $possible_types = [
             'page' => esc_html__( 'Pages', 'dp-meta-tags' ),
             'post' => esc_html__( 'Posts', 'dp-meta-tags' ),
@@ -82,6 +84,7 @@ defined('ABSPATH') || die();
                     <th>Title</th>
                     <?php
                     
+                    // meta tag groups
                     foreach ($dpmt_meta_tag_list as $item => $details){
                         echo '<th>'. $item .' 
                         <span class="dashicons dashicons-editor-help" data-tip="'. esc_attr( wp_strip_all_tags( $details['info'] ) ) .'"></span></th>';
@@ -137,7 +140,8 @@ defined('ABSPATH') || die();
             <tfoot>
                 <tr>                    
                 <?php 
-
+                
+                    // bulk actions
                     echo '
                     <th>
                         <input type="submit" id="doaction" class="button action" value="' . __( 'Apply Bulk Actions', 'dp-meta-tags' ). '"  />

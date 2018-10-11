@@ -1,24 +1,44 @@
 <?php
-
 /**
- * Get all meta tags of an item from database
+ * Loads all meta tags of a WordPress item from database.
+ * 
+ * @since 2.0.0
  */
+
 
 defined('ABSPATH') || die();
 
 
 class DPMT_Retrieve_Tags {
 
-
+    /**
+     * List of all editable meta tags.
+     *
+     * @var array
+     */
     private $list_of_meta_tags;
 
+    /**
+     * All meta tags of the requested WP item.
+     *
+     * @var array
+     */
     private $retrieved_tag_list;
 
+    /**
+     * Meta tag fulfillment statuses by groups.
+     *
+     * @var array
+     */
     private $status;
 
 
 
-    // get the list of all meta tags
+    /**
+     * Loads the list of all editable meta tags.
+     *
+     * @param array $list_of_meta_tags Editable meta tag list.
+     */
     public function __construct( $list_of_meta_tags ){
         
         $this->list_of_meta_tags = $list_of_meta_tags;
@@ -27,6 +47,13 @@ class DPMT_Retrieve_Tags {
 
 
     
+    /**
+     * Retrieves meta tags from the appropriate table based on WP item $type.
+     *
+     * @param string $type WP item type, e.g.: page, post, etc.
+     * @param string $id WP item ID or frontpage marker.
+     * @return array List of meta tags.
+     */
     public function get_tags( $type, $id ){
 
         $type = ($id == 'front' ? 'frontpage' : $type);
@@ -83,7 +110,11 @@ class DPMT_Retrieve_Tags {
 
 
 
-    // check which tags are filled and return a summary about them
+    /**
+     * Checks meta tag fulfillments in each group and returns a one word summary about them.
+     *
+     * @return array Statuses.
+     */
     public function set_status(){
 
         foreach ( $this->retrieved_tag_list as $group => $tags ){
@@ -139,6 +170,11 @@ class DPMT_Retrieve_Tags {
 
 
 
+    /**
+     * Retrieves meta tag fulfillment statuses.
+     *
+     * @return array Statuses.
+     */
     public function get_status( $type = null, $id = null ){
 
         if ($type && $id){            

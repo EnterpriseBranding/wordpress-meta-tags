@@ -1,4 +1,9 @@
 <?php
+/**
+ * Saves meta tags in database.
+ * 
+ * @since 2.0.0
+ */
 
 
 defined('ABSPATH') || die();
@@ -6,8 +11,12 @@ defined('ABSPATH') || die();
 
 class DPMT_Save_Tags {
  
-
-    // save meta tags of a particular wp item
+    /**
+     * Saves meta tags of a particular WP item.
+     * 
+     * @param array $list_of_meta_tags List of all editable meta tags.
+     * @param array $data WP item data to process. Includes item type, ID and meta tag values.
+     */
     public static function save( $list_of_meta_tags, $data ){
 
         // get type so we'll know how to save things
@@ -55,7 +64,7 @@ class DPMT_Save_Tags {
 
                     if ( in_array($field['variable'], $url_fields) ){
 
-                        $value = esc_url( $data[$field['variable']] );
+                        $value = sanitize_text_field( $data[$field['variable']] );
 
                     }else{
 
@@ -103,8 +112,14 @@ class DPMT_Save_Tags {
 
 
 
-    
-    // bulk action to clear all tags or set them autopilot (one meta tag group at a time)
+    /**
+     * Bulk action to clear all tags or set them autopilot (one meta tag group at a time).
+     * 
+     * @param string $action Action to take: delete or set autopilot.
+     * @param array $list_of_meta_tags List of all editable meta tags.
+     * @param string $wp_object_type WP item type that will be updated. E.g.: post, page, etc.
+     * @param string $meta_tag_group Meta tag group that will be updated.
+     */    
     public static function bulk( $action, $list_of_meta_tags, $wp_object_type, $meta_tag_group ){
 
         // only delete or autopilot actions are allowed this time

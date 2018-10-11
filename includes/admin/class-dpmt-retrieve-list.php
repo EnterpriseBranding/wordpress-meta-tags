@@ -1,15 +1,22 @@
 <?php
-
 /**
- * Get all items of a WP object type, e.g. get all pages, posts, etc.
+ * Loads all items of a WP object type, e.g. get all pages, posts, etc.
+ * 
+ * @since 2.0.0
  */
+
 
 defined('ABSPATH') || die();
 
 
 class DPMT_Retrieve_List{
     
-
+    /**
+     * Retrieves all items of a WP item type.
+     *
+     * @param string $wp_object_type WP item type, e.g.: page, post, etc.
+     * @return array List of items.
+     */
     public static function get_list( $wp_object_type ){
         
         $items_per_page = -1;

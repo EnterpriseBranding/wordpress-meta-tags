@@ -1,40 +1,70 @@
 <?php
 /**
- * Summary
+ * Starts frontend processes.
  * 
- * Description.
+ * @since 2.0.0
  */
+
 
 defined('ABSPATH') || die();
 
 
 class DPMT_Frontend {
 
-
-    // all possible meta tags and their info
+    /**
+     * List of all editable meta tags.
+     * 
+     * @var array
+     */
     private $meta_tag_list;
 
-    // meta tags of current page
+    /**
+     * All meta tags of current page.
+     * 
+     * @var array
+     */
     private $tags;
 
-    // current page type
+    /**
+     * Current page type.
+     * 
+     * @var string
+     */
     private $page_type;
 
-    // current page id
+    /**
+     * Current page id.
+     * 
+     * @var int
+     */
     private $page_id;
 
-    // current page info for autopilot tags
+    /**
+     * Current page info for autopilot tags.
+     * 
+     * @var array
+     */
     private $page_info;
 
-    // tells us if open graph html attribute is set
+    /**
+     * Is open graph html attribute set?
+     * 
+     * @var bool
+     */
     private $is_og_html_attr_set = false;
 
-    // meta tags output in head tag
+    /**
+     * Meta tags to print in head tag.
+     * 
+     * @var string
+     */
     private $output = '';
 
 
 
-    // add actions and filters
+    /**
+     * Adds actions and filters.
+     */
     public function __construct(){
 
         add_action( 'init', array( $this, 'includes' ) );
@@ -45,7 +75,9 @@ class DPMT_Frontend {
 
 
 
-    // include all the classes, functions and variables we need
+    /**
+     * Includes all the classes, functions and variables we need.
+     */
     public function includes(){
 
         include_once 'meta-tag-list.php';        
@@ -58,7 +90,11 @@ class DPMT_Frontend {
 
 
 
-    // figure out the page type
+    /**
+     * Figures out the page type of current page.
+     *
+     * @return string Page type.
+     */
     public function get_current_page_type(){
 
         // wp displays blog posts on front page
@@ -119,7 +155,11 @@ class DPMT_Frontend {
 
 
 
-    // figure out the page id
+     /**
+     * Figures out the page ID of current page.
+     *
+     * @return int Page ID.
+     */
     public function get_current_page_id(){
 
         global $wp_query;
@@ -137,7 +177,9 @@ class DPMT_Frontend {
 
 
 
-    // if an open graph tag is set, we should add this attribute to html tag
+    /**
+     * If any open graph tag is set, it adds the required attribute to html tag.
+     */
     public function set_html_prefix_attribute(){
 
         $this->is_og_html_attr_set = true;
@@ -152,7 +194,12 @@ class DPMT_Frontend {
 
 
 
-    // the logic of handling autopilot tags
+    /**
+     * Handles autopilot tags.
+     *
+     * @param string $tag_to_process Meta tag variable name to process.
+     * @return string Meta tag value.
+     */
     public function process_auto_tags( $tag_to_process ){
 
         if ( empty($this->page_info) ){
@@ -299,16 +346,17 @@ class DPMT_Frontend {
 
 
 
-    // process meta tags
+    /**
+     * Generates the meta tag output.
+     */
     public function process_tags(){
 
-        $this->page_type = $this->get_current_page_type();
-        $this->page_id = $this->get_current_page_id();
+        $this->page_type = $this->get_current_page_type(); 
+        $this->page_id = ( $this->page_type == 'frontpage' ? 'front' : $this->get_current_page_id() );
 
         if ( ! $this->page_type || ! $this->page_id ){
             return;
         }
-
 
         $taginfo = new DPMT_Retrieve_Tags( $this->meta_tag_list );
         $tags = $taginfo->get_tags( $this->page_type, $this->page_id );        
@@ -347,7 +395,7 @@ class DPMT_Frontend {
 
                             $this->output .= '<meta '. $values['attr'] .'="'. 
                                 esc_attr( $field ) . '" content="' . 
-                                esc_attr( $this->tags[$info['variable']] ) . '" />' .
+                                esc_attr( stripslashes( $this->tags[$info['variable']] ) ) . '" />' .
                                 PHP_EOL;
 
                         }else{
@@ -355,7 +403,7 @@ class DPMT_Frontend {
                             if ( $content = $this->process_auto_tags( $info['variable'] ) ){
                                 $this->output .= '<meta '. $values['attr'] .'="'.
                                     esc_attr( $field ) . '" content="' .
-                                    esc_attr( $content ) . '" />' .
+                                    esc_attr( stripslashes( $content ) ) . '" />' .
                                     PHP_EOL;    
                             }                            
 
@@ -372,7 +420,9 @@ class DPMT_Frontend {
 
 
 
-    // output all filled meta tag
+    /**
+     * Prints all filled meta tags.
+     */
     public function print_meta_tags(){
 
         echo $this->output;
