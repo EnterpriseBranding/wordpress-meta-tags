@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Meta Tags WordPress Plugin 2.0.0\n"
-"POT-Creation-Date: 2018-10-10 23:25+0100\n"
-"PO-Revision-Date: 2018-10-10 23:26+0100\n"
+"POT-Creation-Date: 2018-10-13 19:34+0100\n"
+"PO-Revision-Date: 2018-10-13 19:34+0100\n"
 "Last-Translator: \n"
 "Language-Team: DivPusher.com\n"
 "Language: english\n"
@@ -15,107 +15,107 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../includes/class-dpmt-meta-tags.php:76
+#: ../includes/class-dpmt-meta-tags.php:103
 #, php-format
 msgid ""
 "Meta Tags plugin requires at least PHP version %1$s or greater and WordPress "
 "%2$s or greater!"
 msgstr ""
 
-#: ../includes/class-dpmt-meta-tags.php:82
+#: ../includes/class-dpmt-meta-tags.php:109
 msgid "Click here to go back"
 msgstr ""
 
-#: ../includes/class-dpmt-retrieve-tags.php:122
+#: ../includes/class-dpmt-retrieve-tags.php:153
 msgid "autopilot"
 msgstr ""
 
-#: ../includes/class-dpmt-retrieve-tags.php:126
+#: ../includes/class-dpmt-retrieve-tags.php:157
 msgid "custom"
 msgstr ""
 
-#: ../includes/class-dpmt-retrieve-tags.php:130
+#: ../includes/class-dpmt-retrieve-tags.php:161
 msgid "mixed"
 msgstr ""
 
-#: ../includes/meta-tag-list.php:10
+#: ../includes/meta-tag-list.php:13
 msgid "General tags"
 msgstr ""
 
-#: ../includes/meta-tag-list.php:12
+#: ../includes/meta-tag-list.php:15
 msgid "Basic HTML meta tags."
 msgstr ""
 
-#: ../includes/meta-tag-list.php:16
+#: ../includes/meta-tag-list.php:19
 msgid ""
 "This text will appear below your title in Google search results. Describe "
 "this page/post in 155 maximum characters. Note: Google will not consider "
 "this in its search ranking algorithm."
 msgstr ""
 
-#: ../includes/meta-tag-list.php:21
+#: ../includes/meta-tag-list.php:24
 msgid ""
 "Improper or spammy use most likely will hurt you with some search engines. "
 "Google will not consider this in its search ranking algorithm, so it's not "
 "really recommended."
 msgstr ""
 
-#: ../includes/meta-tag-list.php:29
+#: ../includes/meta-tag-list.php:32
 msgid "Open Graph"
 msgstr ""
 
-#: ../includes/meta-tag-list.php:31
+#: ../includes/meta-tag-list.php:34
 msgid ""
 "Open Graph has become very popular, so most social networks default to Open "
 "Graph if no other meta tags are present."
 msgstr ""
 
-#: ../includes/meta-tag-list.php:35
+#: ../includes/meta-tag-list.php:38
 msgid "The headline."
 msgstr ""
 
-#: ../includes/meta-tag-list.php:39
+#: ../includes/meta-tag-list.php:42
 msgid "A short summary about the content."
 msgstr ""
 
-#: ../includes/meta-tag-list.php:43
+#: ../includes/meta-tag-list.php:46
 msgid ""
 "Article, website or other. Here is a list of all available types: <a href="
 "\"http://ogp.me/#types\" target=\"_blank\">http://ogp.me/#types</a>"
 msgstr ""
 
-#: ../includes/meta-tag-list.php:47
+#: ../includes/meta-tag-list.php:50
 msgid "URL to your content's audio."
 msgstr ""
 
-#: ../includes/meta-tag-list.php:51
+#: ../includes/meta-tag-list.php:54
 msgid ""
 "URL to your content's image. It should be at least 600x315 pixels, but "
 "1200x630 or larger is preferred (up to 5MB). Stay close to a 1.91:1 aspect "
 "ratio to avoid cropping."
 msgstr ""
 
-#: ../includes/meta-tag-list.php:55 ../includes/meta-tag-list.php:98
+#: ../includes/meta-tag-list.php:58 ../includes/meta-tag-list.php:101
 msgid "A text description of the image for visually impaired users."
 msgstr ""
 
-#: ../includes/meta-tag-list.php:59
+#: ../includes/meta-tag-list.php:62
 msgid ""
 "URL to your content's video. Videos need an og:image tag to be displayed in "
 "News Feed."
 msgstr ""
 
-#: ../includes/meta-tag-list.php:63
+#: ../includes/meta-tag-list.php:66
 msgid ""
 "The URL of your page. Use the canonical URL for this tag (the search engine "
 "friendly URL that you want the search engines to treat as authoritative)."
 msgstr ""
 
-#: ../includes/meta-tag-list.php:71
+#: ../includes/meta-tag-list.php:74
 msgid "Twitter Cards"
 msgstr ""
 
-#: ../includes/meta-tag-list.php:73
+#: ../includes/meta-tag-list.php:76
 msgid ""
 "Simply add a few lines of markup to your webpage, and users who Tweet links "
 "to your content will have a \"Card\" added to the Tweet that’s visible to "
@@ -124,245 +124,279 @@ msgid ""
 "a>."
 msgstr ""
 
-#: ../includes/meta-tag-list.php:77
+#: ../includes/meta-tag-list.php:80
 msgid "The card type."
 msgstr ""
 
-#: ../includes/meta-tag-list.php:82
+#: ../includes/meta-tag-list.php:85
 msgid "The Twitter username of your website. E.g.: @divpusherthemes"
 msgstr ""
 
-#: ../includes/meta-tag-list.php:86
+#: ../includes/meta-tag-list.php:89
 msgid "Title of content (max 70 characters)"
 msgstr ""
 
-#: ../includes/meta-tag-list.php:90
+#: ../includes/meta-tag-list.php:93
 msgid "Description of content (maximum 200 characters)"
 msgstr ""
 
-#: ../includes/meta-tag-list.php:94
+#: ../includes/meta-tag-list.php:97
 msgid ""
 "URL of image to use in the card. Images must be less than 5MB in size. JPG, "
 "PNG, WEBP and GIF formats are supported."
 msgstr ""
 
-#: ../includes/meta-tag-list.php:102
+#: ../includes/meta-tag-list.php:105
 msgid ""
 "HTTPS URL to iFrame player. This must be a HTTPS URL which does not generate "
 "active mixed content warnings in a web browser. The audio or video player "
 "must not require plugins such as Adobe Flash."
 msgstr ""
 
-#: ../includes/meta-tag-list.php:106
+#: ../includes/meta-tag-list.php:109
 msgid "Width of iframe in pixels."
 msgstr ""
 
-#: ../includes/meta-tag-list.php:110
+#: ../includes/meta-tag-list.php:113
 msgid "Height of iframe in pixels."
 msgstr ""
 
-#: ../includes/meta-tag-list.php:114
+#: ../includes/meta-tag-list.php:117
 msgid "URL to raw video or audio stream."
 msgstr ""
 
-#: ../includes/meta-tag-list.php:118
+#: ../includes/meta-tag-list.php:121
 msgid ""
 "The MIME type of video or audio stream, e.g.: <b>video/mp4</b> for *.mp4, "
 "<b>audio/mpeg</b> for *.mp3"
 msgstr ""
 
-#: ../includes/meta-tag-list.php:128
+#: ../includes/meta-tag-list.php:131
 msgid "Insert your custom meta tags here."
 msgstr ""
 
-#: ../includes/meta-tag-list.php:130
+#: ../includes/meta-tag-list.php:133
 msgid "Custom meta tags"
 msgstr ""
 
-#: ../includes/admin/class-dpmt-admin.php:79
+#: ../includes/admin/class-dpmt-admin.php:107
 msgid "Set up tags"
 msgstr ""
 
-#: ../includes/admin/class-dpmt-admin.php:94
-#: ../includes/admin/class-dpmt-admin.php:95
+#: ../includes/admin/class-dpmt-admin.php:124
+#: ../includes/admin/class-dpmt-admin.php:125
 msgid "Meta tags"
 msgstr ""
 
-#: ../includes/admin/class-dpmt-admin.php:138
+#: ../includes/admin/class-dpmt-admin.php:172
 #, php-format
 msgid ""
 "Thank you for using our plugin. Visit <a href=\"%s\">Settings / Meta tags</"
 "a> to set up all the tags."
 msgstr ""
 
-#: ../includes/admin/class-dpmt-admin.php:156
+#: ../includes/admin/class-dpmt-admin.php:190
 #, php-format
 msgid ""
 "New interface! Visit <a href=\"%s\">Settings / Meta tags</a> to edit all of "
 "them in one table! Don't worry, your old settings won't be lost!"
 msgstr ""
 
-#: ../includes/admin/class-dpmt-admin.php:176
+#: ../includes/admin/class-dpmt-admin.php:210
 #, php-format
 msgid ""
 "Need some nice, free or premium theme? <a href=\"%s\" target=\"_blank\">Have "
 "a look around here!</a>"
 msgstr ""
 
-#: ../includes/admin/class-dpmt-admin.php:183
+#: ../includes/admin/class-dpmt-admin.php:217
 msgid "Dismiss forever"
 msgstr ""
 
-#: ../includes/admin/class-dpmt-admin.php:193
+#: ../includes/admin/class-dpmt-admin.php:227
 msgid ""
 "For some reason we couldn't migrate all of your previous meta tag settings. "
 "Sorry!"
 msgstr ""
 
-#: ../includes/admin/class-dpmt-admin.php:233
+#: ../includes/admin/class-dpmt-admin.php:274
 #, php-format
 msgid ""
 "Found a bug? Please <a href=\"%s\" target=\"_blank\">report it here</a> and "
 "we will fix that as soon as we can!"
 msgstr ""
 
-#: ../includes/admin/class-dpmt-admin.php:238
+#: ../includes/admin/class-dpmt-admin.php:279
 #, php-format
 msgid ""
 "If you like our <strong>%s</strong> please leave us a %s rating. Thank you "
 "in advance!"
 msgstr ""
 
-#: ../includes/admin/class-dpmt-admin.php:239
+#: ../includes/admin/class-dpmt-admin.php:280
 msgid "Meta Tags plugin"
 msgstr ""
 
-#: ../includes/admin/class-dpmt-admin.php:260
-#: ../includes/admin/class-dpmt-admin.php:287
+#: ../includes/admin/class-dpmt-admin.php:303
+#: ../includes/admin/class-dpmt-admin.php:332
 msgid "You don't have permission to edit meta tags!"
 msgstr ""
 
-#: ../includes/admin/views/html-meta-tag-editor.php:35
+#: ../includes/admin/views/html-meta-tag-editor.php:38
 msgid "Meta Tag Editor"
 msgstr ""
 
-#: ../includes/admin/views/html-meta-tag-editor.php:38
+#: ../includes/admin/views/html-meta-tag-editor.php:41
 msgid "frontpage"
 msgstr ""
 
-#: ../includes/admin/views/html-meta-tag-editor.php:44
+#: ../includes/admin/views/html-meta-tag-editor.php:47
 msgid "Set All to Autopilot"
 msgstr ""
 
-#: ../includes/admin/views/html-meta-tag-editor.php:45
+#: ../includes/admin/views/html-meta-tag-editor.php:48
 msgid "Clear All"
 msgstr ""
 
-#: ../includes/admin/views/html-meta-tag-editor.php:144
+#: ../includes/admin/views/html-meta-tag-editor.php:147
 msgid "Save Changes"
 msgstr ""
 
-#: ../includes/admin/views/html-meta-tag-table.php:13
+#: ../includes/admin/views/html-meta-tag-table.php:16
 msgid "Meta Tags"
 msgstr ""
 
-#: ../includes/admin/views/html-meta-tag-table.php:15
+#: ../includes/admin/views/html-meta-tag-table.php:18
 msgid ""
 "Click on an item to edit its meta tags. You can also set all of them to "
 "<b>autopilot</b> mode. <b>Autopilot</b> means that the plugin will retrieve "
 "the informations from the page itself."
 msgstr ""
 
-#: ../includes/admin/views/html-meta-tag-table.php:16
+#: ../includes/admin/views/html-meta-tag-table.php:19
 msgid "Click here to learn how!"
 msgstr ""
 
-#: ../includes/admin/views/html-meta-tag-table.php:20
+#: ../includes/admin/views/html-meta-tag-table.php:23
 msgid ""
 "<code>Posts:</code> title will be the post title, description will be the "
 "excerpt (if set) or the first few sentences, image will be the featured "
 "image or the first attached image, video and audio is the same"
 msgstr ""
 
-#: ../includes/admin/views/html-meta-tag-table.php:23
+#: ../includes/admin/views/html-meta-tag-table.php:26
 msgid ""
 "<code>Pages:</code> title will be the page title, description will be the "
 "first few sentences, image will be the featured image or the first attached "
 "image, video and audio is the same"
 msgstr ""
 
-#: ../includes/admin/views/html-meta-tag-table.php:26
+#: ../includes/admin/views/html-meta-tag-table.php:29
 msgid ""
 "<code>Categories, tags:</code> title will be the category/tag name, "
 "description will be the category/tag description"
 msgstr ""
 
-#: ../includes/admin/views/html-meta-tag-table.php:29
+#: ../includes/admin/views/html-meta-tag-table.php:32
 msgid ""
 "<code>Authors:</code> title will be the author name, description will be the "
 "biographical info"
 msgstr ""
 
-#: ../includes/admin/views/html-meta-tag-table.php:32
+#: ../includes/admin/views/html-meta-tag-table.php:35
 msgid ""
 "<code>Woo Product:</code> title will be the product name, description will "
 "be the short description, image will be the product image"
 msgstr ""
 
-#: ../includes/admin/views/html-meta-tag-table.php:35
+#: ../includes/admin/views/html-meta-tag-table.php:38
 msgid ""
 "<b>Please note:</b> some meta tags cannot be filled automatically, e.g.: "
 "Twitter username"
 msgstr ""
 
-#: ../includes/admin/views/html-meta-tag-table.php:44
+#: ../includes/admin/views/html-meta-tag-table.php:47
 msgid "Pages"
 msgstr ""
 
-#: ../includes/admin/views/html-meta-tag-table.php:45
+#: ../includes/admin/views/html-meta-tag-table.php:48
 msgid "Posts"
 msgstr ""
 
-#: ../includes/admin/views/html-meta-tag-table.php:46
+#: ../includes/admin/views/html-meta-tag-table.php:49
 msgid "Post Categories"
 msgstr ""
 
-#: ../includes/admin/views/html-meta-tag-table.php:47
+#: ../includes/admin/views/html-meta-tag-table.php:50
 msgid "Post Tags"
 msgstr ""
 
-#: ../includes/admin/views/html-meta-tag-table.php:48
+#: ../includes/admin/views/html-meta-tag-table.php:51
 msgid "Authors"
 msgstr ""
 
-#: ../includes/admin/views/html-meta-tag-table.php:49
+#: ../includes/admin/views/html-meta-tag-table.php:52
 msgid "Woo Products"
 msgstr ""
 
-#: ../includes/admin/views/html-meta-tag-table.php:50
+#: ../includes/admin/views/html-meta-tag-table.php:53
 msgid "Woo Categories"
 msgstr ""
 
-#: ../includes/admin/views/html-meta-tag-table.php:51
+#: ../includes/admin/views/html-meta-tag-table.php:54
 msgid "Woo Tags"
 msgstr ""
 
-#: ../includes/admin/views/html-meta-tag-table.php:111
+#: ../includes/admin/views/html-meta-tag-table.php:122
 msgid "Frontpage"
 msgstr ""
 
-#: ../includes/admin/views/html-meta-tag-table.php:143
+#: ../includes/admin/views/html-meta-tag-table.php:124
+msgid ""
+"Your homepage displays the latest posts, you'll need meta tags there as well."
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:157
 msgid "Apply Bulk Actions"
 msgstr ""
 
-#: ../includes/admin/views/html-meta-tag-table.php:171
+#: ../includes/admin/views/html-meta-tag-table.php:160
+msgid "Actions will be applied to all items in this section!"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:190
 msgid "Bulk Actions"
 msgstr ""
 
-#: ../includes/admin/views/html-meta-tag-table.php:174
+#: ../includes/admin/views/html-meta-tag-table.php:193
 msgid "Set all to autopilot"
 msgstr ""
 
-#: ../includes/admin/views/html-meta-tag-table.php:178
+#: ../includes/admin/views/html-meta-tag-table.php:197
 msgid "Delete all"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:226
+#, php-format
+msgid "%d items"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:243
+msgid "First page"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:249
+msgid "Previous page"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:266
+msgid "Current page"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:282
+msgid "Next page"
+msgstr ""
+
+#: ../includes/admin/views/html-meta-tag-table.php:288
+msgid "Last page"
 msgstr ""

@@ -12,12 +12,13 @@ defined('ABSPATH') || die();
 <div class="wrap dpmt-table">
     <?php
     
-    echo '<h1>'. __( 'Meta Tags', 'dp-meta-tags' ) . '</h1>';
+    echo '
+    <h1>'. __( 'Meta Tags', 'dp-meta-tags' ) . '</h1>
 
-    echo '<p>' . __( 'Click on an item to edit its meta tags. You can also set all of them to <b>autopilot</b> mode. <b>Autopilot</b> means that the plugin will retrieve the informations from the page itself.', 'dp-meta-tags' ) .    
-    '<a href="#" class="dpmt-toggle" data-toggle="1">' . __( 'Click here to learn how!', 'dp-meta-tags' ) . '</a></p>';
-    
-    echo '<div class="dpmt-hidden" data-toggle="1">
+    <p>' . __( 'Click on an item to edit its meta tags. You can also set all of them to <b>autopilot</b> mode. <b>Autopilot</b> means that the plugin will retrieve the informations from the page itself.', 'dp-meta-tags' ) .    
+    ' <a href="#" class="dpmt-toggle" data-toggle="1">' . __( 'Click here to learn how!', 'dp-meta-tags' ) . '</a></p>
+
+    <div class="dpmt-hidden" data-toggle="1">
 
         <p>' . __( '<code>Posts:</code> title will be the post title, description will be the excerpt (if set) or the first few sentences, image will be the featured image or the first attached image, video and audio is the same', 'dp-meta-tags' ) . 
         '</p>
@@ -97,11 +98,18 @@ defined('ABSPATH') || die();
             <tbody>
             <?php
 
-                $taginfo = new DPMT_Retrieve_Tags( $dpmt_meta_tag_list );
-
-                // get all items of the wp object type
+                // list all items of the wp object type
                 $type = ( !empty($_GET['tab']) ? $_GET['tab'] : 'page' );
-                $items = DPMT_Retrieve_List::get_list( $type );
+
+                $paged = ( !empty($_GET['paged']) ? intval( abs( $_GET['paged'] ) ) : 1 );
+                
+                $items_per_page = 25;
+
+                $offset = ($paged * $items_per_page) - $items_per_page;
+
+                $items = DPMT_Retrieve_List::get_list( $type, $items_per_page, $offset );
+                
+                $taginfo = new DPMT_Retrieve_Tags( $dpmt_meta_tag_list );
 
                 if ( ! empty($items['list']) ){
                     foreach ( $items['list'] as $item ){
@@ -109,20 +117,20 @@ defined('ABSPATH') || die();
                         echo '                
                         <tr>
                             <td>';
-                                if ($item->{$items['query_ID']} == 'front'){
+                                if ($item['id'] == 'front'){
                                     echo '<i><b><a href="options-general.php?page='. $_GET['page'] .'&type='. $type .'&edit='. 
-                                    $item->{$items['query_ID']} .'">'. esc_html__( 'Frontpage', 'dp-meta-tags' ) .'</a></b></i>
+                                    $item['id'] .'">'. esc_html__( 'Frontpage', 'dp-meta-tags' ) .'</a></b></i>
                                     <span class="dashicons dashicons-editor-help" data-tip="'. 
-                                    esc_attr('Your homepage displays the latest posts, you\'ll need meta tags there as well.')
+                                    esc_attr__('Your homepage displays the latest posts, you\'ll need meta tags there as well.')
                                     .'"></span>';
                                 }else{
                                     echo '<a href="options-general.php?page='. $_GET['page'] .'&type='. $type .'&edit='. 
-                                    $item->{$items['query_ID']} .'">'. $item->{$items['query_title']} .'</a>';
+                                    $item['id'] .'">'. $item['title'] .'</a>';
                                 }
                             echo '
                             </td>';
 
-                            $statuses = $taginfo->get_status( $type, $item->{$items['query_ID']} );
+                            $statuses = $taginfo->get_status( $type, $item['id'] );
                             foreach ($statuses as $group => $status){  
                                 echo '<td>'. $status .'</td>';
                             }
@@ -132,6 +140,8 @@ defined('ABSPATH') || die();
                         ';
 
                     }
+                }else{
+                    echo '<tr><td colspan="6">&nbsp;</td></tr>';
                 }
 
             ?>
@@ -145,6 +155,11 @@ defined('ABSPATH') || die();
                     echo '
                     <th>
                         <input type="submit" id="doaction" class="button action" value="' . __( 'Apply Bulk Actions', 'dp-meta-tags' ). '"  />
+
+                        <span class="dashicons dashicons-warning" data-tip="'. 
+                        esc_attr__( 'Actions will be applied to all items in this section!' )
+                        .'"></span>
+
                         <input type="hidden" name="dpmt_type" value="';
                         if ( ! empty($_GET['tab']) ){
                             echo $_GET['tab'];
@@ -192,5 +207,109 @@ defined('ABSPATH') || die();
         </table>
         </div>
     </form>
+
+    <?php
+
+        // pagination        
+
+        $total_pages = ceil( $items['items_found'] / $items_per_page );
+        $prev_page = $paged - 1;
+        $next_page = $paged + 1;
+        $tab = ( !empty($_GET['tab']) ? $_GET['tab'] : '' );
+
+        echo '
+        <form method="GET">
+        <div class="tablenav bottom">
+            <div class="tablenav-pages">
+
+                <span class="displaying-num">' . sprintf(
+                    __( '%d items', 'dp-meta-tags' ),
+                    $items['items_found']
+                ) . '</span>';
+
+
+            if ( $total_pages > 1 ){
+
+                echo '
+                <span class="pagination-links">';
+
+
+                // prev page links
+                if ( !empty($paged) && $paged > 1 ){
+
+                    echo '
+                    <a class="first-page" href="' . 
+                    admin_url( 'options-general.php?page=dpmt-editor&tab=' . $tab ) . '">
+                        <span class="screen-reader-text">'. esc_html__('First page', 'dp-meta-tags' ) .'</span>
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+
+                    <a class="prev-page" href="' . 
+                    admin_url( 'options-general.php?page=dpmt-editor&tab=' . $tab ) . '&amp;paged='. $prev_page .'">
+                        <span class="screen-reader-text">'. esc_html__('Previous page', 'dp-meta-tags' ) .'</span>
+                        <span aria-hidden="true">&lsaquo;</span>
+                    </a>';
+                
+                }else{
+
+                    echo '
+                    <span class="tablenav-pages-navspan" aria-hidden="true">&laquo;</span>
+                    <span class="tablenav-pages-navspan" aria-hidden="true">&lsaquo;</span>';
+
+                }
+                    
+
+                // page info
+                echo '
+                <span class="paging-input">
+                    <label for="current-page-selector" class="screen-reader-text">'. 
+                        esc_html__('Current page', 'dp-meta-tags' ) 
+                    .'</label>
+                    <input type="hidden" name="page" value="dpmt-editor" />
+                    <input type="hidden" name="tab" value="'. $tab .'" />
+                    <input class="current-page" id="current-page-selector" type="text" name="paged" value="'. $paged .'" size="1" aria-describedby="table-paging" />
+                    <span class="tablenav-paging-text"> / <span class="total-pages">'. $total_pages .'</span>
+                    </span>
+                </span>';
+
+
+                // next page links
+                if ( $paged != $total_pages ){
+
+                    echo '
+                    <a class="next-page" href="' . 
+                    admin_url( 'options-general.php?page=dpmt-editor&tab=' . $tab ) . '&amp;paged='. $next_page .'">
+                        <span class="screen-reader-text">'. esc_html__('Next page', 'dp-meta-tags' ) .'</span>
+                        <span aria-hidden="true">&rsaquo;</span>
+                    </a>
+                    
+                    <a class="last-page" href="' . 
+                    admin_url( 'options-general.php?page=dpmt-editor&tab=' . $tab ) . '&amp;paged=' . $total_pages .'">
+                        <span class="screen-reader-text">'. esc_html__('Last page', 'dp-meta-tags' ) .'</span>
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>';
+
+                }else{
+
+                    echo '
+                    <span class="tablenav-pages-navspan" aria-hidden="true">&rsaquo;</span>
+                    <span class="tablenav-pages-navspan" aria-hidden="true">&raquo;</span>';
+
+                }
+
+
+                echo '
+                </span>';
+
+            }
+
+
+            echo ' 
+            </div>
+        </div>
+        </form>
+        ';
+
+    ?>  
 
 </div>

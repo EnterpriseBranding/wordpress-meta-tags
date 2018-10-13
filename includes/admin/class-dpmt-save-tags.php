@@ -169,7 +169,7 @@ class DPMT_Save_Tags {
             foreach($items['list'] as $item){
 
                 // frontpage
-                if ( $item->{$items['query_ID']} == 'front' ){
+                if ( $item['id'] == 'front' ){
 
                     foreach ( $fields_to_update as $field ){
 
@@ -198,11 +198,11 @@ class DPMT_Save_Tags {
                                 
                                 if ( $action == 'autopilot' ){
                                     
-                                    update_term_meta( $item->{$items['query_ID']}, $field, 'auto' );
+                                    update_term_meta( $item['id'], $field, 'auto' );
 
                                 }elseif( $action == 'delete' ){
 
-                                    delete_term_meta( $item->{$items['query_ID']}, $field );
+                                    delete_term_meta( $item['id'], $field );
 
                                 }
 
@@ -213,11 +213,11 @@ class DPMT_Save_Tags {
 
                                 if ( $action == 'autopilot' ){
                                     
-                                    update_user_meta( $item->{$items['query_ID']}, $field, 'auto' );
+                                    update_user_meta( $item['id'], $field, 'auto' );
 
                                 }elseif( $action == 'delete' ){
 
-                                    delete_user_meta( $item->{$items['query_ID']}, $field );
+                                    delete_user_meta( $item['id'], $field );
 
                                 }
 
@@ -228,11 +228,11 @@ class DPMT_Save_Tags {
 
                                 if ( $action == 'autopilot' ){
 
-                                    update_post_meta( $item->{$items['query_ID']}, $field, 'auto' );
+                                    update_post_meta( $item['id'], $field, 'auto' );
                                 
                                 }elseif( $action == 'delete' ){
 
-                                    delete_post_meta( $item->{$items['query_ID']}, $field );
+                                    delete_post_meta( $item['id'], $field );
 
                                 }
 

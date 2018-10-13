@@ -17,121 +17,219 @@ class DPMT_Retrieve_List{
      * @param string $wp_object_type WP item type, e.g.: page, post, etc.
      * @return array List of items.
      */
-    public static function get_list( $wp_object_type ){
-        
-        $items_per_page = -1;
+    public static function get_list( $wp_object_type, $items_per_page = -1, $offset = 0 ){
+
+        $list = array();
 
         switch ( $wp_object_type ){
 
             case 'page':
-                $list = get_pages( array(
+
+                $query = new WP_Query( array(
                     'post_type' => 'page',
-                    'post_status' => 'publish', 
-                    'posts_per_page' => $items_per_page
+                    'posts_per_page' => $items_per_page,
+                    'offset' => $offset,
+                    'orderby' => 'title',
+                    'order' => 'ASC'
                 ) );
 
-
-                // if frontpage displays blog posts
-                if ( get_option('page_on_front') == 0 ){
+                if ( $query->have_posts() ){
+                    while ( $query->have_posts() ){
                         
-                    $frontpage = (object) [
-                        'ID' => 'front',
-                        'post_title' => 'Frontpage'
-                    ];
-                    array_unshift($list, $frontpage);
-                    
+                        $query->the_post();
+
+                        $list[] = [
+                            'id' => get_the_ID(),
+                            'title' => get_the_title()                    
+                        ];
+
+                    }
                 }
 
+                wp_reset_postdata();
 
-                $type = 'page';
-                $query_ID = 'ID';
-                $query_title = 'post_title';
+                // if frontpage displays blog posts
+                if ( get_option('page_on_front') == 0 && $offset == 0 ){
+                        
+                    $frontpage = [
+                        'id' => 'front',
+                        'title' => 'Frontpage'
+                    ];
+                    array_unshift($list, $frontpage);
+
+                }
+
+                $items_found = $query->found_posts;
 
                 break;
 
 
+
             case 'post':
-                $list = get_posts( array(
-                    'post_status' => 'publish',
-                    'posts_per_page' => $items_per_page
+
+                $query = new WP_Query( array(
+                    'post_type' => 'post',
+                    'posts_per_page' => $items_per_page,
+                    'offset' => $offset
                 ) );
 
-                $type = 'post';
-                $query_ID = 'ID';
-                $query_title = 'post_title';
+                if ( $query->have_posts() ){
+                    while ( $query->have_posts() ){
+                        
+                        $query->the_post();
+
+                        $list[] = [
+                            'id' => get_the_ID(),
+                            'title' => get_the_title()                    
+                        ];
+
+                    }
+                }
+
+                wp_reset_postdata();
+
+                $items_found = $query->found_posts;
                 
                 break;
 
 
-            case 'category':
-                $list = get_categories();
 
-                $type = 'category';
-                $query_ID = 'term_id';
-                $query_title = 'name';
+            case 'category':
+
+                $items = get_categories( array(
+                    'number' => ( $items_per_page == -1 ? null : $items_per_page ), 
+                    'offset' => $offset
+                ) );
+                
+                foreach ($items as $item) {
+                    $list[] = [
+                        'id' => $item->term_id,
+                        'title' => $item->name
+                    ];
+                }
+
+                $items_found = count( get_categories() );
+
 
                 break;
+
 
 
             case 'tag':
-                $list = get_tags();
 
-                $type = 'tag';
-                $query_ID = 'term_id';
-                $query_title = 'name';
+                $items = get_tags( array(
+                    'number' => ( $items_per_page == -1 ? null : $items_per_page ), 
+                    'offset' => $offset
+                ) );
+
+                foreach ($items as $item) {
+                    $list[] = [
+                        'id' => $item->term_id,
+                        'title' => $item->name
+                    ];
+                }
+
+                $items_found = count( get_tags() );
+
 
                 break;
+
 
 
             case 'author':
-                $list = get_users( array(
+
+                $items = get_users( array(
+                    'number' => ( $items_per_page == -1 ? null : $items_per_page ), 
+                    'offset' => $offset,
                     'orderby' => 'display_name'
                 ) );
 
-                $type = 'author';
-                $query_ID = 'ID';
-                $query_title = 'display_name';
+                foreach ($items as $item) {
+                    $list[] = [
+                        'id' => $item->ID,
+                        'title' => $item->display_name
+                    ];
+                }
+
+                $items_found = count( get_users() );
+
 
                 break;
+
 
 
             case 'woo-product':
-                $list = get_posts( array(
-                    'post_type' => 'product', 
+
+                $query = new WP_Query( array(
+                    'post_type' => 'product',
                     'posts_per_page' => $items_per_page,
-                    'orderby' => 'name',
-                    'order' => 'ASC'
+                    'offset' => $offset
                 ) );
 
-                $type = 'woo-product';
-                $query_ID = 'ID';
-                $query_title = 'post_title';
+                if ( $query->have_posts() ){
+                    while ( $query->have_posts() ){
+                        
+                        $query->the_post();
+
+                        $list[] = [
+                            'id' => get_the_ID(),
+                            'title' => get_the_title()                    
+                        ];
+
+                    }
+                }
+
+                wp_reset_postdata();
+
+                $items_found = $query->found_posts;
+                
 
                 break;
+
 
 
             case 'woo-category':
-                $list = get_terms( array(
-                    'taxonomy' => 'product_cat'
+
+                $items = get_terms( array(
+                    'taxonomy' => 'product_cat',
+                    'number' => ( $items_per_page == -1 ? null : $items_per_page ), 
+                    'offset' => $offset
                 ) );
 
-                $type = 'woo-category';
-                $query_ID = 'term_id';
-                $query_title = 'name';
+                foreach ($items as $item) {
+                    $list[] = [
+                        'id' => $item->term_id,
+                        'title' => $item->name
+                    ];
+                }
+
+                $items_found = count( get_terms( array( 'taxonomy' => 'product_cat' ) ) );
+
 
                 break;
+
 
 
             case 'woo-tag':
-                $list = get_terms( array(
-                    'taxonomy' => 'product_tag'
+
+                $items = get_terms( array(
+                    'taxonomy' => 'product_tag',
+                    'number' => ( $items_per_page == -1 ? null : $items_per_page ), 
+                    'offset' => $offset
                 ) );
 
-                $type = 'woo-tag';
-                $query_ID = 'term_id';
-                $query_title = 'name';
+                foreach ($items as $item) {
+                    $list[] = [
+                        'id' => $item->term_id,
+                        'title' => $item->name
+                    ];
+                }
+
+                $items_found = count( get_terms( array( 'taxonomy' => 'product_tag' ) ) );
+
 
                 break;
+
 
 
             default:
@@ -144,9 +242,7 @@ class DPMT_Retrieve_List{
         // return an array with the info
         $return_array = [
             'list' => $list,
-            'type' => $type,
-            'query_ID' => $query_ID,
-            'query_title' => $query_title,
+            'items_found' => $items_found
         ];
 
         return $return_array;

@@ -6,7 +6,7 @@ Donate link: https://divpusher.com/
 Tags: meta tags, seo, edit meta tags, search engine optimization, facebook open graph, twitter cards, schema.org
 Requires at least: 4.7.0
 Tested up to: 4.9.8
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0
 
@@ -40,6 +40,11 @@ None yet.
 
 
 == Changelog ==
+
+= 2.0.1 =
+* Update: added pagination for table, so it won't crash if there are too many items to display
+* Update: CSS code is now commented
+* Update: language files
 
 = 2.0.0 =
 * Update: complete refactoring, switching to more maintainable OOP code

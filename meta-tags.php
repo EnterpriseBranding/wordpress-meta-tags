@@ -5,7 +5,7 @@ Plugin URI: https://wordpress.org/plugins/meta-tags/
 Description: A super simple plugin to edit meta tags in all your pages, posts, categories, tags and WooCommerce pages.
 Author: DivPusher - WordPress Theme Club
 Author URI: https://divpusher.com/
-Version: 2.0.0
+Version: 2.0.1
 Text Domain: dp-meta-tags
 Domain Path:  /languages
 Tags: meta tags, edit meta tags, facebook open graph, twitter cards, seo
