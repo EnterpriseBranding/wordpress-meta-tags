@@ -5,8 +5,8 @@ Contributors: divpusher
 Donate link: https://divpusher.com/
 Tags: meta tags, seo, edit meta tags, search engine optimization, facebook open graph, twitter cards, schema.org
 Requires at least: 4.7.0
-Tested up to: 4.9.8
-Stable tag: 2.0.1
+Tested up to: 5.0.1
+Stable tag: 2.0.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0
 
@@ -40,6 +40,11 @@ None yet.
 
 
 == Changelog ==
+
+= 2.0.2 =
+* Update: plugin is tested up to WP 5.0.0
+* Update: added a direct link to the meta tag editor in each page/post/product editor
+* Update: language files
 
 = 2.0.1 =
 * Update: added pagination for table, so it won't crash if there are too many items to display

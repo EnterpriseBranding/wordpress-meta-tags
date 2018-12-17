@@ -26,6 +26,7 @@ class DPMT_Admin {
         add_action( 'admin_footer_text', array( $this, 'change_footer_text' ) );
         add_action( 'admin_post_dpmt_editor_form_submit', array( $this, 'save_meta_tags' ) );
         add_action( 'admin_post_dpmt_table_bulk_submit', array( $this, 'table_bulk_actions' ) );
+        add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 
     }
 
@@ -360,6 +361,50 @@ class DPMT_Admin {
         wp_redirect( admin_url( 'options-general.php?page=dpmt-editor&tab=' . $type ) );
 
     }
+
+
+
+    /**
+     * Adds a direct link to the meta tag editor in each page/post/product editor page.
+     * @since 2.0.2
+     */
+    public function add_meta_boxes(){
+
+        $screens = ['post', 'page', 'product'];
+        foreach ($screens as $screen) {
+            add_meta_box(
+                'dpmt_meta_tag_editor_link',
+                esc_html__('Edit Meta Tags', 'dp-meta-tags'),
+                array( $this, 'meta_box_html' ),
+                $screen,
+                'side'
+            );
+        }
+
+    }
+
+
+    public function meta_box_html(){
+
+        if (!empty($_GET['post'])){
+
+            $currentScreen = get_current_screen();
+            $postType = ($currentScreen->post_type == 'product' ? 'woo-product' : $currentScreen->post_type);
+
+            echo '<a href="' . 
+                admin_url('options-general.php?page=dpmt-editor&type='. $postType .'&edit='. intval($_GET['post'])) .'">' . 
+                esc_html__('Click here to edit meta tags of this item.', 'dp-meta-tags') . 
+                '</a>';    
+
+        }else{
+
+            echo '<i>'. esc_html__('You need to save this item first to edit its meta tags.', 'dp-meta-tags') .'</i>';
+
+        }
+
+    }
+
+
 
 
 }
